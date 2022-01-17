@@ -22,5 +22,10 @@ VALUES ('TFSA', 1),
 ('RRSP', 5),
 ('Taxable', 5);
 
-INSERT INTO transactions (date, ticker, type, price, shares)
-VALUES (2020-01-10, 'XIC', 'BUY', )
+INSERT INTO transactions (date, ticker, type, price, shares, portfolio_id)
+VALUES ('2017-03-14', 'XIC', 'BUY', 12345, 13, 1),
+('2017-03-14', 'HXS', 'BUY', 12342, 123, 3),
+('2017-03-14', 'VUS', 'BUY', 1245, 130, 2),
+('2017-03-14', 'AAPL', 'BUY', 16545, 213, 5),
+('2017-03-14', 'TSLA', 'BUY', 12845, 53, 7),
+('2017-03-14', 'FB', 'BUY', 1235, 73, 9);
