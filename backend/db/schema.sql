@@ -22,6 +22,6 @@ CREATE TABLE transactions (
   ticker VARCHAR(255) NOT NULL,
   type VARCHAR(255) NOT NULL,
   price INTEGER NOT NULL,
-  shares INTEGER NOT NULL,
+  quantity INTEGER NOT NULL,
   portfolio_id INTEGER REFERENCES portfolios(id) ON DELETE CASCADE
 );

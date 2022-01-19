@@ -16,7 +16,7 @@ async function loginUser(credentials) {
 
 async function axiosTest (user) {
 axios.post('/test', user)
-  .then(function (res) { console.log(res) } )
+  .then(function (res) { console.log(res.data) } )
 }
 
 export default function Login({ setToken }) {
