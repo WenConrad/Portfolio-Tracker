@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import './Login.css';
+const axios = require('axios');
 
 async function loginUser(credentials) {
  return fetch('http://localhost:8080/login', {
@@ -13,13 +14,18 @@ async function loginUser(credentials) {
    .then(data => data.json())
 }
 
+async function axiosTest (user) {
+axios.post('/test', user)
+  .then(function (res) { console.log(res) } )
+}
+
 export default function Login({ setToken }) {
   const [username, setUserName] = useState();
   const [password, setPassword] = useState();
 
   const handleSubmit = async e => {
     e.preventDefault();
-    const token = await loginUser({
+    const token = await axiosTest({
       username,
       password
     });
