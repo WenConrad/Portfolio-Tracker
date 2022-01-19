@@ -22,7 +22,7 @@ VALUES ('TFSA', 1),
 ('RRSP', 5),
 ('Taxable', 5);
 
-INSERT INTO transactions (date, ticker, type, price, shares, portfolio_id)
+INSERT INTO transactions (date, ticker, type, price, quantity, portfolio_id)
 VALUES ('2017-03-14', 'XIC', 'BUY', 12345, 13, 1),
 ('2017-03-14', 'HXS', 'BUY', 12342, 123, 3),
 ('2017-03-14', 'VUS', 'BUY', 1245, 130, 2),
