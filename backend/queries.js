@@ -45,7 +45,7 @@ const addUser = function (user) {
 exports.addUser = addUser;
 
 const getStockPositions = function (user_id) {
-  let myQuery = `SELECT * FROM transactions JOIN portfolios ON portfolio_id = portfolios.id WHERE portfolios.user_id = $1;`;
+  let myQuery = `SELECT * FROM transactions WHERE user_id = $1;`;
   let params = [user_id];
   return pool
     .query(myQuery, params)
@@ -56,9 +56,9 @@ const getStockPositions = function (user_id) {
 };
 exports.getStockPositions = getStockPositions;
 
-const getPositionsByPortfolio = function (portfolio_id) {
-  let myQuery = `SELECT * FROM transactions WHERE portfolio_id = $1;`;
-  let params = [portfolio_id];
+const getPositionsByPortfolio = function (user_id, portfolio_name) {
+  let myQuery = `SELECT * FROM transactions WHERE user_id = $1 AND portfolio_name = $2;`;
+  let params = [user_id, portfolio_name];
   return pool
     .query(myQuery, params)
     .then((result) => result.rows)
