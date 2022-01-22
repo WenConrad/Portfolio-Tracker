@@ -14,6 +14,13 @@ router.get("/transactions", function (req, res, next) {
   });
 });
 
+router.post("/transactions/new", function (req, res, next) {
+  let user = req.session.user;
+  database.addPosition(user, req.body).then((result) => {
+    res.json(result);
+  });
+});
+
 router.get("/positions", function (req, res, next) {
   let user = req.session.user;
   database.getStockPositions(user).then((result) => {

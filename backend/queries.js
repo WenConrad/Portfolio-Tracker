@@ -56,6 +56,28 @@ const getStockPositions = function (user_id) {
 };
 exports.getStockPositions = getStockPositions;
 
+const addPosition = function (user_id, transaction) {
+  let myQuery = `INSERT INTO transactions
+    (date, ticker, type, price, quantity, portfolio_name, user_id)
+    VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *;`;
+  let params = [
+    transaction.date,
+    transaction.ticker,
+    transaction.type,
+    transaction.price,
+    transaction.quantity,
+    transaction.portfolio_name,
+    user_id,
+  ];
+  return pool
+    .query(myQuery, params)
+    .then((result) => result.rows[0])
+    .catch((err) => {
+      console.log(err.message);
+    });
+};
+exports.addPosition = addPosition;
+
 const getPositionsByPortfolio = function (user_id, portfolio_name) {
   let myQuery = `SELECT * FROM transactions WHERE user_id = $1 AND portfolio_name = $2;`;
   let params = [user_id, portfolio_name];
