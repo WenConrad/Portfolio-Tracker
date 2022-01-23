@@ -18,17 +18,11 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { mainListItems, secondaryListItems } from "../Dashboard/listItems";
-import Chart from "../Dashboard/Chart";
+
 import Deposits from "../Dashboard//Deposits";
-import Orders from "../Dashboard//Orders";
+import TransactionListItem from "./TransactionListItem";
 
-const axios = require('axios');
-
-async function axiosTest() {
-    axios.get("/stocks/transactions", { 'headers': { 'Authorization': "AuthStr" } }).then(function (res) {
-      console.log(res.data);
-    });
-  }
+import axios from "axios";
 
 function Copyright(props) {
   return (
@@ -102,10 +96,21 @@ function DashboardContent() {
     setOpen(!open);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-   await axiosTest(); 
-}
+  const [transactions, getTransactions] = React.useState('');
+  React.useEffect( () => {
+    getAllTransactions();
+  }, [] );
+
+  const getAllTransactions = () => {
+    axios.get("/stocks/transactions")
+    .then(function (res) {
+      console.log(res.data);
+      const allTransactions = res.data;
+      //add our data to state
+      getTransactions(allTransactions);
+    })
+    .catch(error => console.error(`Error: ${error}`));
+  }
 
   return (
     <ThemeProvider theme={mdTheme}>
@@ -188,8 +193,7 @@ function DashboardContent() {
                     height: 240,
                   }}
                 >
-                  <><h3>Transactions!</h3>
-        <button onClick={handleSubmit}/></>
+                  <><h3>Transactions!</h3></>
                 </Paper>
               </Grid>
               {/* Recent Deposits */}
@@ -205,10 +209,10 @@ function DashboardContent() {
                   <Deposits />
                 </Paper>
               </Grid>
-              {/* Recent Orders */}
+              {/* Recent Transactions */}
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-                  <Orders />
+                  <TransactionListItem transactions={transactions}/>
                 </Paper>
               </Grid>
             </Grid>

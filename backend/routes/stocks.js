@@ -8,8 +8,8 @@ router.get("/", function (req, res, next) {
 });
 
 router.get("/transactions", function (req, res, next) {
-  console.log(req.headers)
-  let user = req.session.user;
+  console.log(req.session.userId)
+  let user = req.session.userId;
   database.getStockPositions(user).then((result) => {
     res.json(result);
   });
