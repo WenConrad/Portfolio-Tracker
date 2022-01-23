@@ -25,7 +25,7 @@ import Orders from "../Dashboard//Orders";
 const axios = require('axios');
 
 async function axiosTest() {
-    axios.get("/stocks/positions", { 'headers': { 'Authorization': "AuthStr" } }).then(function (res) {
+    axios.get("/stocks/transactions", { 'headers': { 'Authorization': "AuthStr" } }).then(function (res) {
       console.log(res.data);
     });
   }
@@ -136,7 +136,7 @@ function DashboardContent() {
               noWrap
               sx={{ flexGrow: 1 }}
             >
-              Positions
+              Transactions
             </Typography>
             <IconButton color="inherit">
               <Badge badgeContent={4} color="secondary">
@@ -188,7 +188,7 @@ function DashboardContent() {
                     height: 240,
                   }}
                 >
-                  <><h3>possitions!</h3>
+                  <><h3>Transactions!</h3>
         <button onClick={handleSubmit}/></>
                 </Paper>
               </Grid>
@@ -220,6 +220,6 @@ function DashboardContent() {
   );
 }
 
-export default function PositionList() {
+export default function TransactionList() {
   return <DashboardContent />;
 }
