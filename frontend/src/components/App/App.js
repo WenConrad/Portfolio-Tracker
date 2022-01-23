@@ -1,5 +1,11 @@
 import React, { useContext } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter,
+  Route,
+  Routes,
+  useLocation,
+  useNavigate,
+} from "react-router-dom";
 
 import "./App.css";
 import Dashboard from "../Dashboard/Dashboard";
@@ -10,30 +16,37 @@ import PositionList from "../Position/PositionList";
 // import SignIn from "../SignIn";
 // import useToken from "./useToken";
 import { authContext } from "../../providers/AuthProvider";
+import { render } from "react-dom";
 
 function App() {
   const { auth, user, login, logout } = useContext(authContext);
+  const Navigate = useNavigate;
 
-  // const { token, setToken } = useToken();
-
-  // if(!token) {
-  //   return <Login setToken={setToken} />
-  // }
-
-  const loggedIn = true;
+  const NoUser = function () {
+    return <Navigate replace to="/login" />;
+  };
 
   return (
     <div className="wrapper">
-      <h1>Application</h1>
+      <h1>
+        Application{console.log(user)}
+        {console.log(auth)}
+      </h1>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Login />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/preferences" element={<Preferences />} />
-          <Route path="/positions" element={<PositionList />} />
-          <Route path="*" element={<Login />} />
+          {!auth && <Route path="/dashboard" element={<Dashboard />} />}
+          {auth && (
+            <>
+              <Route path="/" element={<Login />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/preferences" element={<Preferences />} />
+              <Route path="/positions" element={<PositionList />} />
+              <Route path="*" element={<Login />} />
+            </>
+          )}
         </Routes>
       </BrowserRouter>
     </div>

@@ -1,3 +1,5 @@
+import axios from "axios";
+
 const { useState, createContext } = require("react");
 
 export const authContext = createContext();
@@ -6,9 +8,16 @@ const AuthProvider = function (props) {
   const [auth, setAuth] = useState(false);
   const [user, setUser] = useState(null);
 
-  const login = function (email, password) {
-    setAuth(true);
-    setUser({ email, id: "id", name: "test User" });
+  const login = function (credentials) {
+    return axios
+      .post("/users/login", {
+        email: credentials.email,
+        password: credentials.password,
+      })
+      .then((res) => {
+        setUser(res.data.user.id);
+        setAuth(true);
+      });
   };
 
   const logout = function () {
