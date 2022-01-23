@@ -19,7 +19,7 @@ function App() {
       <h1>Application</h1>
       <BrowserRouter>
         <Routes>
-          <Route path="/signin" element = {<SignIn />} />
+          <Route path="/" element = {<Login />} />
           <Route path="/dashboard" element = {<Dashboard />} />
           <Route path="/preferences" element = {<Preferences />} />
         </Routes>

@@ -1,0 +1,36 @@
+const express = require("express");
+const router = express.Router();
+
+const database = require("../queries");
+
+router.get("/", function (req, res, next) {
+  res.send("something");
+});
+
+router.get("/transactions", function (req, res, next) {
+  let user = req.session.user;
+  database.getStockPositions(user).then((result) => {
+    res.json(result);
+  });
+});
+
+router.post("/transactions/new", function (req, res, next) {
+  let user = req.session.user;
+  database.addPosition(user, req.body).then((result) => {
+    res.json(result);
+  });
+});
+
+router.get("/positions", function (req, res, next) {
+  let user = req.session.user;
+  database.getStockPositions(user).then((result) => {
+    res.json(result);
+  });
+});
+
+router.get("/portfolio/:name", function (req, res, next) {
+  let user = req.session.user;
+  database.getPositionsByPortfolio(user, req.params.name).then((result) => {
+    res.json(result);
+  });
+});
