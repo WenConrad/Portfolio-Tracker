@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import './Login.css';
+import SignUp from '../SignUp/SignUp';
+import { useNavigate } from "react-router-dom";
 
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -50,22 +52,19 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function Login({ setToken }) {
-  const [username, setUserName] = useState();
+  let navigate = useNavigate();
+
+  const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
     const token = await axiosTest({
-      username,
-      password,
-    });
+      email,
+      password
+    }).then(navigate('/dashboard'));
     setToken(token);
-    const data = new FormData(e.currentTarget);
-    // eslint-disable-next-line no-console
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
   }
 
   return(
@@ -88,6 +87,7 @@ export default function Login({ setToken }) {
           </Typography>
           <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
             <TextField
+              onChange={e => setEmail(e.target.value)}
               margin="normal"
               required
               fullWidth
@@ -97,6 +97,7 @@ export default function Login({ setToken }) {
               autoComplete="email"
               autoFocus />
             <TextField
+              onChange={e => setPassword(e.target.value)}
               margin="normal"
               required
               fullWidth
@@ -123,7 +124,7 @@ export default function Login({ setToken }) {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/signup" variant="body2">
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>
@@ -133,26 +134,10 @@ export default function Login({ setToken }) {
         <Copyright sx={{ mt: 8, mb: 4 }} />
       </Container>
     </ThemeProvider>
-    <div className="login-wrapper">
-        <h1>Please Log In</h1>
-        <form onSubmit={handleSubmit}>
-          <label>
-            <p>Username</p>
-            <input type="text" onChange={e => setUserName(e.target.value)} />
-          </label>
-          <label>
-            <p>Password</p>
-            <input type="password" onChange={e => setPassword(e.target.value)} />
-          </label>
-          <div>
-            <button type="submit">Submit</button>
-          </div>
-        </form>
-      </div>
-      </>
+    </>
   )
 }
 
-Login.propTypes = {
-  setToken: PropTypes.func.isRequired,
-};
+// Login.propTypes = {
+//   setToken: PropTypes.func.isRequired
+// };

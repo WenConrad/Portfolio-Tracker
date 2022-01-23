@@ -4,15 +4,20 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
 import Dashboard from '../Dashboard/Dashboard';
 import Login from '../Login/Login';
+import SignUp from '../SignUp/SignUp';
 import Preferences from '../Preferences/Preferences';
+import PositionList from '../Position/PositionList';
 import SignIn from '../SignIn';
+import useToken from './useToken';
 
 function App() {
-  const [token, setToken] = useState();
+  // const { token, setToken } = useToken();
 
-  if(!token) {
-    return <Login setToken={setToken} />
-  }
+  // if(!token) {
+  //   return <Login setToken={setToken} />
+  // }
+
+  const loggedIn = true;
 
   return (
     <div className="wrapper">
@@ -20,8 +25,12 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element = {<Login />} />
+          <Route path="/login" element = {<Login />} />
+          <Route path="/signup" element = {<SignUp />} />
           <Route path="/dashboard" element = {<Dashboard />} />
           <Route path="/preferences" element = {<Preferences />} />
+          <Route path="/positions" element = {<PositionList />} />
+          <Route path="*" element = {<Login />} />
         </Routes>
       </BrowserRouter>
     </div>

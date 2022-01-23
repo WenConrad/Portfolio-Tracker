@@ -8,6 +8,7 @@ router.get("/", function (req, res, next) {
 });
 
 router.get("/transactions", function (req, res, next) {
+  console.log(req.headers)
   let user = req.session.user;
   database.getStockPositions(user).then((result) => {
     res.json(result);
@@ -34,3 +35,5 @@ router.get("/portfolio/:name", function (req, res, next) {
     res.json(result);
   });
 });
+
+module.exports = router;

@@ -38,15 +38,18 @@ const login = function (email, password) {
 exports.login = login;
 
 router.post("/login", (req, res) => {
+  console.log(req.body)
   const { email, password } = req.body;
   login(email, password)
     .then((user) => {
+      console.log(user);
       if (!user) {
         res.send({ error: "error" });
         return;
       }
       req.session.userId = user.id;
       res.send({ user: { name: user.name, email: user.email, id: user.id } });
+      
     })
     .catch((e) => res.send(e));
 });
