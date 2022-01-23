@@ -8,7 +8,7 @@ router.get("/", function (req, res, next) {
 });
 
 router.get("/transactions", function (req, res, next) {
-  console.log(req.session.userId)
+  // console.log(req.session.userId)
   let user = req.session.userId;
   database.getStockPositions(user).then((result) => {
     res.json(result);
@@ -23,7 +23,7 @@ router.post("/transactions/new", function (req, res, next) {
 });
 
 router.get("/positions", function (req, res, next) {
-  let user = req.session.user;
+  let user = req.session.userId;
   database.getStockPositions(user).then((result) => {
     res.json(result);
   });
