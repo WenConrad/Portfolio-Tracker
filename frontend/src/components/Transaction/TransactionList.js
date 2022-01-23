@@ -104,7 +104,7 @@ function DashboardContent() {
   const getAllTransactions = () => {
     axios.get("/stocks/transactions")
     .then(function (res) {
-      console.log(res.data);
+    //   console.log(res.data);
       const allTransactions = res.data;
       //add our data to state
       getTransactions(allTransactions);

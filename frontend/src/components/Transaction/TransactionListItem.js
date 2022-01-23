@@ -41,11 +41,11 @@ export default function TransactionListItem(props) {
         const {transactions} = props;
         if (transactions.length > 0) {
             return(
-                transactions.map( (transaction, index) => {
+                <TableBody>
+                {transactions.map( (transaction) => {
                     // console.log(transaction);
                     return(
-                      <TableBody>
-                        <TableRow key={Math.random().toString(36).substr(2, 9)}>
+                        <TableRow key={transaction.id}>
                             <TableCell>{transaction.date}</TableCell>
                             <TableCell>{transaction.portfolio_name}</TableCell>
                             <TableCell>{transaction.price}</TableCell>
@@ -53,16 +53,16 @@ export default function TransactionListItem(props) {
                             <TableCell>{transaction.ticker}</TableCell>
                             <TableCell align="right">{transaction.type}</TableCell>
                         </TableRow>
-                      </TableBody>
                     )
-                })
+                })}
+                </TableBody>
             )
         }
     }
     
   return (
     <React.Fragment>
-      <Title>Recent Orders</Title>
+      <Title>Recent Transactions</Title>
       <Table size="small">
         <TableHead>
           <TableRow>
