@@ -13,6 +13,7 @@ import Login from "../Login/Login";
 import SignUp from "../SignUp/SignUp";
 import Preferences from "../Preferences/Preferences";
 import PositionList from "../Position/PositionList";
+import TransactionList from "../Transaction/TransactionList";
 // import SignIn from "../SignIn";
 // import useToken from "./useToken";
 import { authContext } from "../../providers/AuthProvider";
@@ -28,10 +29,10 @@ function App() {
 
   return (
     <div className="wrapper">
-      <h1>
-        Application{console.log(user)}
+      
+        {console.log(user)}
         {console.log(auth)}
-      </h1>
+      
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Login />} />
@@ -44,6 +45,7 @@ function App() {
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/preferences" element={<Preferences />} />
               <Route path="/positions" element={<PositionList />} />
+              <Route path="/transactions" element={<TransactionList />} />
               <Route path="*" element={<Login />} />
             </>
           )}
