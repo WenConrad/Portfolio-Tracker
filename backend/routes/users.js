@@ -38,7 +38,7 @@ const login = function (email, password) {
 exports.login = login;
 
 router.post("/login", (req, res) => {
-  console.log(req.body)
+  console.log(req.body);
   const { email, password } = req.body;
   login(email, password)
     .then((user) => {
@@ -49,7 +49,6 @@ router.post("/login", (req, res) => {
       }
       req.session.userId = user.id;
       res.send({ user: { name: user.name, email: user.email, id: user.id } });
-      
     })
     .catch((e) => res.send(e));
 });
@@ -59,7 +58,7 @@ router.post("/logout", (req, res) => {
   res.send({});
 });
 
-router.get("/me", (req, res) => {
+router.get("/auth", (req, res) => {
   const userId = req.session.userId;
   if (!userId) {
     res.send({ message: "not logged in" });

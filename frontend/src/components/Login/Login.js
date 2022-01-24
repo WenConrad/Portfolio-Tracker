@@ -70,15 +70,6 @@ export default function Login({ setToken }) {
       })
       .catch((e) => console.log(e));
   };
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-
-  //   const token = await axiosTest({
-  //     email,
-  //     password,
-  //   }).then(navigate("/dashboard"));
-  //   setToken(token);
-  // };
 
   return (
     <>

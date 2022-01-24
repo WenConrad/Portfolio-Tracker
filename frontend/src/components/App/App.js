@@ -14,15 +14,20 @@ import { authContext } from "../../providers/AuthProvider";
 import { render } from "react-dom";
 
 function App() {
-  const { auth, user, login, logout } = useContext(authContext);
+  const { auth, user, login, checkAuth, logout } = useContext(authContext);
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
   useEffect(() => {
-    if (!auth && pathname !== "/signup") {
-      navigate("/login");
-    }
-  }, [auth]);
+    checkAuth().then(() => {
+      if (!auth && pathname !== "/signup") {
+        navigate("/login");
+      }
+      if (auth && (pathname === "/login" || pathname === "signup")) {
+        navigate("dashboard");
+      }
+    });
+  }, []);
 
   // if (!auth && pathname !== "/signup") {
   //   return <Login />;
@@ -31,14 +36,12 @@ function App() {
   return (
     <div className="wrapper">
       <Routes>
-        <Route path="/" element={<Login />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/preferences" element={<Preferences />} />
         <Route path="/positions" element={<PositionList />} />
         <Route path="/transactions" element={<TransactionList />} />
-        <Route path="*" element={<Login />} />
       </Routes>
     </div>
   );

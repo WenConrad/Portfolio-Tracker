@@ -15,8 +15,8 @@ const AuthProvider = function (props) {
         password: credentials.password,
       })
       .then((res) => {
-        if (res.data.user && res.data.user.id) {
-          setUser(res.data.user.id);
+        if (res.data.user) {
+          setUser(res.data.user);
           setAuth(true);
         } else {
           throw Error("ur login bad");
@@ -24,12 +24,24 @@ const AuthProvider = function (props) {
       });
   };
 
+  const checkAuth = function () {
+    return axios.get("users/auth").then((res) => {
+      if (res.data.user) {
+        console.log(res.data.user);
+        setUser(res.data.user);
+        setAuth(true);
+      } else {
+        throw Error("ur login bad");
+      }
+    });
+  };
+
   const logout = function () {
     setAuth(false);
     setUser(null);
   };
 
-  const providerData = { auth, user, login, logout };
+  const providerData = { auth, user, login, checkAuth, logout };
 
   return (
     <authContext.Provider value={providerData}>
