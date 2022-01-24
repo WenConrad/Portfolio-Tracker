@@ -17,7 +17,7 @@ import Link from "@mui/material/Link";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import { mainListItems, secondaryListItems } from "../Dashboard/listItems";
+import { mainListItems } from "../Dashboard/listItems";
 
 import Deposits from "../Dashboard//Deposits";
 import TransactionListItem from "./TransactionListItem";
@@ -167,7 +167,7 @@ function DashboardContent() {
           <Divider />
           <List>{mainListItems}</List>
           <Divider />
-          <List>{secondaryListItems}</List>
+          
         </Drawer>
         <Box
           component="main"
