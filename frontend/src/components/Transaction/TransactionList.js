@@ -21,6 +21,7 @@ import { mainListItems, secondaryListItems } from "../Dashboard/listItems";
 
 import Deposits from "../Dashboard//Deposits";
 import TransactionListItem from "./TransactionListItem";
+import TransactionForm from "./TransactionForm";
 
 import axios from "axios";
 
@@ -193,7 +194,7 @@ function DashboardContent() {
                     height: 240,
                   }}
                 >
-                  <><h3>Transactions!</h3></>
+                  
                 </Paper>
               </Grid>
               {/* Recent Deposits */}
@@ -216,6 +217,7 @@ function DashboardContent() {
                 </Paper>
               </Grid>
             </Grid>
+            <TransactionForm />
             <Copyright sx={{ pt: 4 }} />
           </Container>
         </Box>

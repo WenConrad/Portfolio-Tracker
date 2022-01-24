@@ -16,7 +16,8 @@ router.get("/transactions", function (req, res, next) {
 });
 
 router.post("/transactions/new", function (req, res, next) {
-  let user = req.session.user;
+  console.log(req.session.userId)
+  let user = req.session.userId;
   database.addPosition(user, req.body).then((result) => {
     res.json(result);
   });

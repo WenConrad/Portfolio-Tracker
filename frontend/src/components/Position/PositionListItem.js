@@ -45,16 +45,15 @@ export default function PositionListItem(props) {
                 {positions.map( (position) => {
                     // console.log(transaction);
                     return(
-                      
+                
                         <TableRow key={position.id}>
-                            <TableCell>{position.date}</TableCell>
+                            
                             <TableCell>{position.portfolio_name}</TableCell>
                             <TableCell>{position.price}</TableCell>
                             <TableCell>{position.quantity}</TableCell>
                             <TableCell>{position.ticker}</TableCell>
-                            <TableCell align="right">{position.type}</TableCell>
+                            
                         </TableRow>
-                      
                     )
                 })}
                 </TableBody>
@@ -68,12 +67,12 @@ export default function PositionListItem(props) {
       <Table size="small">
         <TableHead>
           <TableRow>
-            <TableCell>Date</TableCell>
+            
             <TableCell>Portfolio</TableCell>
             <TableCell>Price</TableCell>
             <TableCell>Quantity</TableCell>
             <TableCell>Ticker</TableCell>
-            <TableCell align="right">Type</TableCell>
+            
           </TableRow>
         </TableHead>
         {/* Display transactions from props */}
