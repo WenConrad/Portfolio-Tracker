@@ -44,6 +44,18 @@ const addUser = function (user) {
 };
 exports.addUser = addUser;
 
+const getTransactions = function (user_id) {
+  let myQuery = `SELECT * FROM transactions WHERE user_id = $1;`;
+  let params = [user_id];
+  return pool
+    .query(myQuery, params)
+    .then((result) => result.rows)
+    .catch((err) => {
+      console.log(err.message);
+    });
+};
+exports.getTransactions = getTransactions;
+
 const getStockPositions = function (user_id) {
   let myQuery = `SELECT * FROM transactions WHERE user_id = $1;`;
   let params = [user_id];
