@@ -16,7 +16,7 @@ router.get("/transactions", function (req, res, next) {
 });
 
 router.post("/transactions/new", function (req, res, next) {
-  console.log(req.session.userId)
+  console.log(req.session.userId);
   let user = req.session.userId;
   database.addPosition(user, req.body).then((result) => {
     res.json(result);
@@ -26,42 +26,8 @@ router.post("/transactions/new", function (req, res, next) {
 router.get("/positions", function (req, res, next) {
   let user = req.session.userId;
   database.getStockPositions(user).then((result) => {
-    const stockPositions = {};
-    for (let row of result) {
-      if (!stockPositions[row.portfolio_name]) {
-        stockPositions[row.portfolio_name] = {};
-      }
-      if (!stockPositions[row.portfolio_name][row.ticker]) {
-        stockPositions[row.portfolio_name][row.ticker] = {
-          quantity: 0,
-          price: 0,
-        };
-      }
-      const sumQuantity = row.type === "SELL" ? -row.quantity : row.quantity;
-      const sumPrice = row.price === "SELL" ? -row.price : row.price;
-      stockPositions[row.portfolio_name][row.ticker].quantity += sumQuantity;
-      stockPositions[row.portfolio_name][row.ticker].price += sumPrice;
-      if (stockPositions[row.portfolio_name][row.ticker].quantity === 0) {
-        delete stockPositions[row.portfolio_name][row.ticker];
-      }
-      if (stockPositions[row.portfolio_name] === {}) {
-        delete stockPositions[row.portfolio_name];
-      }
-    }
-    const positionsList = [];
-    for (let portfolio in stockPositions) {
-      for (let position in stockPositions[portfolio]) {
-        console.log(position);
-        positionsList.push({
-          id: stockPositions[portfolio][position].id,
-          portfolio_name: portfolio,
-          ticker: position,
-          quantity: stockPositions[portfolio][position].quantity,
-          price: stockPositions[portfolio][position].price,
-        });
-      }
-    }
-    res.json(positionsList);
+    console.log(result);
+    res.json(result);
   });
 });
 
