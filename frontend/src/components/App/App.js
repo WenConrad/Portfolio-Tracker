@@ -19,19 +19,21 @@ function App() {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    checkAuth().then(() => {
-      if (!auth && pathname !== "/signup") {
+    checkAuth().then((res) => {
+      if (!res.data.user && pathname !== "/signup") {
         navigate("/login");
       }
-      if (auth && (pathname === "/login" || pathname === "signup")) {
+      if (res.data.user && (pathname === "/login" || pathname === "/signup")) {
         navigate("dashboard");
       }
     });
   }, []);
 
-  // if (!auth && pathname !== "/signup") {
-  //   return <Login />;
-  // }
+  const logoutRedirect = function () {
+    logout().then((res) => {
+      navigate("/login");
+    });
+  };
 
   return (
     <div className="wrapper">
@@ -43,6 +45,7 @@ function App() {
         <Route path="/positions" element={<PositionList />} />
         <Route path="/transactions" element={<TransactionList />} />
       </Routes>
+      <button onClick={logoutRedirect}>logout test button</button>
     </div>
   );
 }

@@ -27,18 +27,18 @@ const AuthProvider = function (props) {
   const checkAuth = function () {
     return axios.get("users/auth").then((res) => {
       if (res.data.user) {
-        console.log(res.data.user);
         setUser(res.data.user);
         setAuth(true);
-      } else {
-        throw Error("ur login bad");
       }
+      return res;
     });
   };
 
   const logout = function () {
-    setAuth(false);
-    setUser(null);
+    return axios.post("/users/logout").then((res) => {
+      setAuth(false);
+      setUser(null);
+    });
   };
 
   const providerData = { auth, user, login, checkAuth, logout };
