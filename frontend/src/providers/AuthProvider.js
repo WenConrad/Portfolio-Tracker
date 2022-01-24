@@ -15,8 +15,12 @@ const AuthProvider = function (props) {
         password: credentials.password,
       })
       .then((res) => {
-        setUser(res.data.user.id);
-        setAuth(true);
+        if (res.data.user && res.data.user.id) {
+          setUser(res.data.user.id);
+          setAuth(true);
+        } else {
+          throw Error("ur login bad");
+        }
       });
   };
 

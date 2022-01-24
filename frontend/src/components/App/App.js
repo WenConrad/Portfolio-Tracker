@@ -1,11 +1,5 @@
-import React, { useContext } from "react";
-import {
-  BrowserRouter,
-  Route,
-  Routes,
-  useLocation,
-  useNavigate,
-} from "react-router-dom";
+import React, { useContext, useEffect } from "react";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 
 import "./App.css";
 import Dashboard from "../Dashboard/Dashboard";
@@ -21,36 +15,31 @@ import { render } from "react-dom";
 
 function App() {
   const { auth, user, login, logout } = useContext(authContext);
-  const Navigate = useNavigate;
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
 
-  const NoUser = function () {
-    return <Navigate replace to="/login" />;
-  };
+  useEffect(() => {
+    if (!auth && pathname !== "/signup") {
+      navigate("/login");
+    }
+  }, [auth]);
+
+  // if (!auth && pathname !== "/signup") {
+  //   return <Login />;
+  // }
 
   return (
     <div className="wrapper">
-      
-        {console.log(user)}
-        {console.log(auth)}
-      
-      <BrowserRouter>
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          {!auth && <Route path="/dashboard" element={<Dashboard />} />}
-          {auth && (
-            <>
-              <Route path="/" element={<Login />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<SignUp />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/preferences" element={<Preferences />} />
-              <Route path="/positions" element={<PositionList />} />
-              <Route path="/transactions" element={<TransactionList />} />
-              <Route path="*" element={<Login />} />
-            </>
-          )}
-        </Routes>
-      </BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/preferences" element={<Preferences />} />
+        <Route path="/positions" element={<PositionList />} />
+        <Route path="/transactions" element={<TransactionList />} />
+        <Route path="*" element={<Login />} />
+      </Routes>
     </div>
   );
 }

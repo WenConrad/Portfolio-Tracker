@@ -64,9 +64,11 @@ export default function Login({ setToken }) {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const loginRedirect = function () {
-    login({ email, password }).then((res) => {
-      navigate("/dashboard");
-    });
+    login({ email, password })
+      .then((res) => {
+        navigate("/dashboard");
+      })
+      .catch((e) => console.log(e));
   };
   // const handleSubmit = async (e) => {
   //   e.preventDefault();
