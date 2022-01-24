@@ -53,6 +53,7 @@ router.get("/positions", function (req, res, next) {
       for (let position in stockPositions[portfolio]) {
         console.log(position);
         positionsList.push({
+          id: stockPositions[portfolio][position].id,
           portfolio_name: portfolio,
           ticker: position,
           quantity: stockPositions[portfolio][position].quantity,

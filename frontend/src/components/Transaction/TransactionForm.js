@@ -29,7 +29,7 @@ export default function TransactionForm() {
   }
   return (
     <React.Fragment>
-      <Title>Recent Transactions</Title>
+      <Title>Add Transaction</Title>
       <FormControl>
           <LocalizationProvider dateAdapter={DateAdapter}>
           <DateTimePicker
@@ -41,16 +41,15 @@ export default function TransactionForm() {
           />
           </LocalizationProvider>
 
-          <InputLabel htmlFor='inputTicker'>Ticker</InputLabel>
-          <Input id='inputTicker'></Input>
-          <InputLabel htmlFor='inputType'>Type</InputLabel>
-          <Input id='inputType'></Input>
-          <InputLabel htmlFor='inputPrice'>Price</InputLabel>
-          <Input id='inputPrice'></Input>
-          <InputLabel htmlFor='inputQuantity'>Quantity</InputLabel>
-          <Input id='inputQuantity'></Input>
-          <InputLabel htmlFor='inputPortfolioName'>Portfolio Name</InputLabel>
-          <Input id='inputPortfolioName'></Input>
+
+          
+          <TextField id='inputType' label='Ticker'></TextField>
+          <TextField id='inputType' label='Type'></TextField>
+          <TextField id='inputType' label='Price'></TextField>
+          <TextField id='inputType' label='Quantity'></TextField>
+          <TextField id='inputType' label='Portfolio Name'></TextField>
+          
+
           
           <Button onClick={handleSubmit}>Add Transaction</Button>
       </FormControl>
