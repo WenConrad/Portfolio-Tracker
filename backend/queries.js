@@ -59,12 +59,13 @@ exports.getTransactions = getTransactions;
 const getStockPositions = function (user_id) {
   let myQuery = `SELECT
     positions.ticker,
+    positions.id,
     SUM(positions.book_cost) as book_cost,
     SUM(positions.quantity) as quantity,
     portfolios.name AS portfolio_name
     FROM positions JOIN portfolios ON portfolios.id = portfolio_id
     WHERE user_id = $1
-    GROUP BY positions.ticker, portfolios.name;`;
+    GROUP BY positions.ticker, portfolios.name, positions.id;`;
   let params = [user_id];
   return pool
     .query(myQuery, params)

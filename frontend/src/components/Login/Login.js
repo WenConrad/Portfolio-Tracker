@@ -1,9 +1,7 @@
 import React, { useState, useContext } from "react";
-// import PropTypes from 'prop-types';
 import "./Login.css";
-// import SignUp from '../SignUp/SignUp';
 import { useNavigate } from "react-router-dom";
-
+// mui components
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -17,30 +15,14 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+// template components
+import Copyright from "../Template/Template";
+// authProvider
 import { authContext } from "../../providers/AuthProvider";
-import { Title } from "@mui/icons-material";
-
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
 
 const theme = createTheme();
 
-export default function Login({ setToken }) {
+export default function Login() {
   let navigate = useNavigate();
 
   const { login } = useContext(authContext);
@@ -139,8 +121,4 @@ export default function Login({ setToken }) {
       </ThemeProvider>
     </>
   );
-}
-
-// Login.propTypes = {
-//   setToken: PropTypes.func.isRequired
-// };
+};

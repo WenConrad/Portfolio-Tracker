@@ -1,4 +1,5 @@
 import * as React from "react";
+// mui components
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import MuiDrawer from "@mui/material/Drawer";
@@ -17,77 +18,15 @@ import Link from "@mui/material/Link";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import { mainListItems } from "../Dashboard/listItems";
+// template components
+import { mainListItems } from "../Template/listItems";
+import Copyright from "../Template/Template";
+import { AppBar, Drawer } from "../Template/Template";
 
-import Deposits from "../Dashboard//Deposits";
 import TransactionListItem from "./TransactionListItem";
 import TransactionForm from "./TransactionForm";
 
 import axios from "axios";
-
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Portfolio Tracker
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
-
-const drawerWidth = 240;
-
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== "open",
-})(({ theme, open }) => ({
-  zIndex: theme.zIndex.drawer + 1,
-  transition: theme.transitions.create(["width", "margin"], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(["width", "margin"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}));
-
-const Drawer = styled(MuiDrawer, {
-  shouldForwardProp: (prop) => prop !== "open",
-})(({ theme, open }) => ({
-  "& .MuiDrawer-paper": {
-    position: "relative",
-    whiteSpace: "nowrap",
-    width: drawerWidth,
-    transition: theme.transitions.create("width", {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    boxSizing: "border-box",
-    ...(!open && {
-      overflowX: "hidden",
-      transition: theme.transitions.create("width", {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
-      width: theme.spacing(7),
-      [theme.breakpoints.up("sm")]: {
-        width: theme.spacing(9),
-      },
-    }),
-  },
-}));
 
 const mdTheme = createTheme();
 
@@ -110,6 +49,19 @@ function DashboardContent() {
         const allTransactions = res.data;
         //add our data to state
         setTransactions(allTransactions);
+      })
+      .catch((error) => console.error(`Error: ${error}`));
+  };
+
+  const getAllPortfolios = () => {
+    axios
+      .get("/stocks/portfolio")
+      .then(function (res) {
+        console.log("GET /stocks/portfolio");
+        console.log(res.data);
+        const allTransactions = res.data;
+        //add our data to state
+        getPortfolios(allTransactions);
       })
       .catch((error) => console.error(`Error: ${error}`));
   };
@@ -184,7 +136,7 @@ function DashboardContent() {
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
-              {/* Chart */}
+              {/* Add Transaction */}
               <Grid item xs={12} md={8} lg={9}>
                 <Paper
                   sx={{
@@ -193,7 +145,7 @@ function DashboardContent() {
                     flexDirection: "column",
                   }}
                 >
-                  <TransactionForm />
+                  <TransactionForm portfoliolist={portfolios} />
                 </Paper>
               </Grid>
               {/* Recent Deposits */}

@@ -7,12 +7,14 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Title from "../Dashboard/Title";
 
+import moment from "moment";
+
 function preventDefault(event) {
   event.preventDefault();
 }
 
 export default function TransactionListItem(props) {
-  const [row, setRow] = React.useState([]);
+  
   // console.log(props)
   const displayTransaction = (props) => {
     const { transactions } = props;
@@ -21,9 +23,10 @@ export default function TransactionListItem(props) {
         <TableBody>
           {transactions.map((transaction) => {
             // console.log(transaction);
+            let date = moment(transaction.date).format('YYYY-MM-DD');
             return (
               <TableRow key={transaction.id}>
-                <TableCell>{transaction.date}</TableCell>
+                <TableCell>{date}</TableCell>
                 <TableCell>{transaction.portfolio_name}</TableCell>
                 <TableCell>{transaction.ticker}</TableCell>
                 <TableCell>{transaction.price}</TableCell>

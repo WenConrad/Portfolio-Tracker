@@ -50,7 +50,7 @@ export default function PortfolioItem(props) {
           </TableRow>
         </TableHead>
         {/* Display transactions from props */}
-        <>{displayTransaction(props)}</>
+        <>{displayPortfolio(props)}</>
       </Table>
       <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
         See more transactions

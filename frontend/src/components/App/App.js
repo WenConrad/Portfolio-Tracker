@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 
+// Components
 import "./App.css";
 import Dashboard from "../Dashboard/Dashboard";
 import Login from "../Login/Login";
@@ -8,10 +9,13 @@ import SignUp from "../SignUp/SignUp";
 import Preferences from "../Preferences/Preferences";
 import PositionList from "../Position/PositionList";
 import TransactionList from "../Transaction/TransactionList";
-// import useToken from "./useToken";
+// authProvider
 import { authContext } from "../../providers/AuthProvider";
+<<<<<<< HEAD
 import { render } from "react-dom";
 import { portfoliosContext } from "../../providers/PortfolioProvider";
+=======
+>>>>>>> master
 
 function App() {
   const { auth, user, login, checkAuth, logout } = useContext(authContext);
@@ -19,6 +23,7 @@ function App() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
+  // check if user is logged in
   useEffect(() => {
     checkAuth().then((res) => {
       if (!res.data.user && pathname !== "/signup") {
@@ -38,10 +43,11 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/preferences" element={<Preferences />} />
-        <Route path="/positions" element={<PositionList />} />
-        <Route path="/transactions" element={<TransactionList />} />
         <Route path="/portfolio/:name" element={<Dashboard />} />
+        <Route path="/positions" element={<PositionList />} />
+        {/* <Route path="/portfolio/:name" element={<PositionList />} /> */}
+        <Route path="/transactions" element={<TransactionList />} />
+        <Route path="/preferences" element={<Preferences />} />
       </Routes>
     </div>
   );
