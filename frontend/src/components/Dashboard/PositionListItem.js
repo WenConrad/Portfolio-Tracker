@@ -19,7 +19,7 @@ export default function PositionListItem(props) {
       return (
         <TableBody>
           {positions.map((position) => {
-            // console.log(position);
+            // console.log(position.id);
             return (
               <TableRow key={position.id}>
                 <TableCell>{position.portfolio_name}</TableCell>

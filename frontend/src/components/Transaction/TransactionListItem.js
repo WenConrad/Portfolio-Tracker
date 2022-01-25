@@ -12,7 +12,7 @@ function preventDefault(event) {
 }
 
 export default function TransactionListItem(props) {
-  const [row, setRow] = React.useState([]);
+  
   // console.log(props)
   const displayTransaction = (props) => {
     const { transactions } = props;

@@ -1,4 +1,5 @@
 import * as React from "react";
+// mui components
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import MuiDrawer from "@mui/material/Drawer";
@@ -13,37 +14,19 @@ import Badge from "@mui/material/Badge";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
-import Link from "@mui/material/Link";
+
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import { mainListItems } from "./listItems";
-import Chart from "./Chart";
-import Deposits from "./Deposits";
-import Orders from "./Orders";
+import { mainListItems } from "../Template/listItems";
+
+import Copyright from "../Template/Template";
 import PositionListItem from "./PositionListItem";
 
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 
 import axios from "axios";
 
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Portfolio Tracker
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
 
 const drawerWidth = 240;
 
@@ -99,12 +82,13 @@ function DashboardContent() {
     setOpen(!open);
   };
 
-  let params = useParams();
+  // let params = useParams();
   
   const [positions, getPositions] = React.useState('');
   React.useEffect( () => {
-    console.log(params.name);
-    let url = params.name ? `/stocks/portfolio/${params.name}` : '/stocks/positions'
+    // console.log(params.name);
+    // let url = params.name ? `/stocks/portfolio/${params.name}` : '/stocks/positions'
+    let url = '/stocks/positions'
     getAllPositions(url);
   }, [] );
 

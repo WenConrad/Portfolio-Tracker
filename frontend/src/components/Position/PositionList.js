@@ -17,29 +17,16 @@ import Link from "@mui/material/Link";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import { mainListItems } from "../Dashboard/listItems";
+import { mainListItems } from "../Template/listItems";
+
+import { useParams } from "react-router-dom";
 
 import PortfolioItem from "./PortfolioItem";
+import PositionListItem from "../Dashboard/PositionListItem";
+
+import  Copyright  from "../Template/Template";
 
 import axios from "axios";
-
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Portfolio Tracker
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
 
 const drawerWidth = 240;
 
@@ -95,18 +82,34 @@ function DashboardContent() {
     setOpen(!open);
   };
 
+  let params = useParams();
+   
   const [portfolios, getPortfolios] = React.useState('');
+  const [positions, getPositions] = React.useState('');
   React.useEffect( () => {
-    getAllPortfolios();
+    console.log(params.name);
+    let url = params.name ? `/stocks/portfolio/${params.name}` : '/stocks/portfolio';
+    params.name ? getAllPositions(url) : getAllPortfolios(url);
   }, [] );
 
-  const getAllPortfolios = () => {
-    axios.get("/stocks/portfolio")
+  const getAllPortfolios = (url) => {
+    axios.get(url)
     .then(function (res) {
     //   console.log(res.data);
       const allTransactions = res.data;
       //add our data to state
       getPortfolios(allTransactions);
+    })
+    .catch(error => console.error(`Error: ${error}`));
+  }
+
+  const getAllPositions = (url) => {
+    axios.get(url)
+    .then(function (res) {
+    //   console.log(res.data);
+      const allPositions = res.data;
+      //add our data to state
+      getPositions(allPositions);
     })
     .catch(error => console.error(`Error: ${error}`));
   }
@@ -186,6 +189,13 @@ function DashboardContent() {
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
                   <PortfolioItem portfolios={portfolios} />
+                </Paper>
+              </Grid>
+            
+              {/* positions */}
+              <Grid item xs={12}>
+                <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
+                <PositionListItem positions={positions}/>
                 </Paper>
               </Grid>
             </Grid>

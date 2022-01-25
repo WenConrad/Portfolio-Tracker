@@ -1,4 +1,6 @@
 import * as React from "react";
+
+// mui components
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import MuiDrawer from "@mui/material/Drawer";
@@ -17,31 +19,15 @@ import Link from "@mui/material/Link";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import { mainListItems } from "../Dashboard/listItems";
+import { mainListItems } from "../Template/listItems";
 
-import Deposits from "../Dashboard//Deposits";
 import TransactionListItem from "./TransactionListItem";
 import TransactionForm from "./TransactionForm";
 
+import  Copyright  from "../Template/Template";
+
 import axios from "axios";
 
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Portfolio Tracker
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
 
 const drawerWidth = 240;
 
@@ -97,6 +83,7 @@ function DashboardContent() {
     setOpen(!open);
   };
 
+  const [portfolios, getPortfolios] = React.useState('');
   const [transactions, getTransactions] = React.useState('');
   React.useEffect( () => {
     getAllTransactions();
@@ -184,7 +171,7 @@ function DashboardContent() {
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
-              {/* Chart */}
+              {/* Add Transaction */}
               <Grid item xs={12} md={8} lg={9}>
                 <Paper
                   sx={{
@@ -194,7 +181,7 @@ function DashboardContent() {
                     
                   }}
                 >
-                  <TransactionForm />
+                  <TransactionForm portfolios={portfolios} />
                 </Paper>
               </Grid>
               {/* Recent Deposits */}

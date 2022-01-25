@@ -16,7 +16,7 @@ function preventDefault(event) {
 export default function PortfolioItem(props) {
     // const [row, setRow] = React.useState([]);
     // console.log(props)
-    const displayTransaction = (props) => {
+    const displayPortfolio = (props) => {
         const {portfolios} = props;
         if (portfolios && portfolios.length > 0) {
             return(
@@ -53,7 +53,7 @@ export default function PortfolioItem(props) {
           </TableRow>
         </TableHead>
         {/* Display transactions from props */}
-        <>{displayTransaction(props)}</>
+        <>{displayPortfolio(props)}</>
       </Table>
       <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
         See more transactions
