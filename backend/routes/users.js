@@ -38,7 +38,6 @@ const login = function (email, password) {
 exports.login = login;
 
 router.post("/login", (req, res) => {
-  console.log(req.body);
   const { email, password } = req.body;
   login(email, password)
     .then((user) => {

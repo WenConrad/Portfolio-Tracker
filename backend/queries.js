@@ -75,7 +75,7 @@ const getStockPositions = function (user_id) {
 };
 exports.getStockPositions = getStockPositions;
 
-const addTransaction = function (transaction) {
+const addTransaction = async function (transaction) {
   if (transaction.type === "BUY") {
     let positionsQuery = `INSERT INTO positions
       (date, ticker, book_cost, quantity, portfolio_id)
@@ -87,9 +87,9 @@ const addTransaction = function (transaction) {
       transaction.quantity,
       transaction.portfolio_id,
     ];
-    return pool
-      .query(myQuery, params)
-      .then((result) => result.rows)
+    pool
+      .query(positionsQuery, positionsParams)
+      .then((result) => console.log(result.rows))
       .catch((err) => {
         console.log(err.message);
       });
@@ -98,44 +98,53 @@ const addTransaction = function (transaction) {
       WHERE ticker = $1 AND portfolio_id = $2
       ORDER BY date ASC;`;
     let params = [transaction.ticker, portfolio_id];
-    return pool
-      .query(myQuery, params)
-      .then((result) => result.rows)
-      .catch((err) => {
-        console.log(err.message);
-      });
+    const checkPositions = await pool.query(myQuery, params);
+    let stockToBeSold = transaction.quantity;
+    let i = 0;
+    while (stockToBeSold > 0) {
+      let position = checkPositions[i];
+      if (position.quantity <= stockToBeSold) {
+        stockToBeSold -= position.quantity;
+        pool
+          .query(
+            `DELETE FROM positions WHERE id = $1 RETURNING *;`,
+            position.id
+          )
+          .then((result) => console.log(result.rows))
+          .catch((err) => {
+            console.log(err.message);
+          });
+      } else {
+        let newQuantity = position.quantity - stockToBeSold;
+        pool
+          .query(`UPDATE positions SET quantity = $1 RETURNING *;`, newQuantity)
+          .then((result) => console.log(result.rows))
+          .catch((err) => {
+            console.log(err.message);
+          });
+        stockToBeSold = 0;
+      }
+      i++;
+    }
   }
-  return checkPosition(transaction);
-  // if (transaction.type === "BUY") {
-  //   //when you insert a transaction, you need to also update the position for the user
-  //   // const checkPosition = pool ... SELECT * from positions WHERE ticker = {transaction.ticker} AND user_id = {user_id}
-  //   //if length.checkPosition < 1, INSERT
-  //   //else{ UPDATE}
-  //   //check if ticket exists for user, if it doesnt -> INSERT, if it DOES -> update the ticker
-  // } else if (transaction.type === "SELL") {
-  //   //do a check here and then insert into table / update the position table
-  // }
-  // let myQuery = `INSERT INTO transactions
-  // (date, ticker, type, price, quantity, portfolio_name, user_id)
-  // VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *;`;
+  let myQuery = `INSERT INTO transactions
+  (date, ticker, type, price, quantity, portfolio_id)
+  VALUES ($1, $2, $3, $4, $5, $6) RETURNING *;`;
 
-  // let params = [
-  //   transaction.date,
-  //   transaction.ticker,
-  //   transaction.type,
-  //   transaction.price,
-  //   transaction.quantity,
-  //   transaction.portfolio_name,
-  //   user_id,
-  // ];
-  // const transactionResult = pool
-  //   .query(myQuery, params)
-  //   .then((result) => result.rows[0])
-  //   .catch((err) => {
-  //     console.log(err.message);
-  //   });
-
-  // return transactionResult;
+  let params = [
+    transaction.date,
+    transaction.ticker,
+    transaction.type,
+    transaction.price,
+    transaction.quantity,
+    transaction.portfolio_id,
+  ];
+  return pool
+    .query(myQuery, params)
+    .then((result) => result.rows[0])
+    .catch((err) => {
+      console.log(err.message);
+    });
 };
 exports.addTransaction = addTransaction;
 
