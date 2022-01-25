@@ -76,19 +76,35 @@ const getStockPositions = function (user_id) {
 exports.getStockPositions = getStockPositions;
 
 const addTransaction = function (transaction) {
-  const checkPosition = function (transaction) {
-    let positionQuery = `SELECT EXISTS(SELECT * FROM positions WHERE ticker = $1 AND portfolio_id = $2);`;
-    let positionParams = [transaction.ticker, transaction.portfolio_id];
+  if (transaction.type === "BUY") {
+    let positionsQuery = `INSERT INTO positions
+      (date, ticker, book_cost, quantity, portfolio_id)
+      VALUES ($1, $2, $3, $4, $5) RETURNING *;`;
+    let positionsParams = [
+      transaction.date,
+      transaction.ticker,
+      transaction.price,
+      transaction.quantity,
+      transaction.portfolio_id,
+    ];
     return pool
-      .query(positionQuery, positionParams)
-      .then((result) => result.rows[0].exists)
+      .query(myQuery, params)
+      .then((result) => result.rows)
       .catch((err) => {
         console.log(err.message);
       });
-  };
-  checkPosition(transaction).then((res) => {
-    console.log(res);
-  });
+  } else if (transaction.type === "SELL") {
+    let myQuery = `SELECT * FROM positions
+      WHERE ticker = $1 AND portfolio_id = $2
+      ORDER BY date ASC;`;
+    let params = [transaction.ticker, portfolio_id];
+    return pool
+      .query(myQuery, params)
+      .then((result) => result.rows)
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }
   return checkPosition(transaction);
   // if (transaction.type === "BUY") {
   //   //when you insert a transaction, you need to also update the position for the user
