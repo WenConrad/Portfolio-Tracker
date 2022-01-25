@@ -35,7 +35,7 @@ function Copyright(props) {
     >
       {"Copyright © "}
       <Link color="inherit" href="https://mui.com/">
-        Your Website
+        Portfolio Tracker
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -191,10 +191,10 @@ function DashboardContent() {
                     p: 2,
                     display: "flex",
                     flexDirection: "column",
-                    height: 240,
+                    
                   }}
                 >
-                  
+                  <TransactionForm />
                 </Paper>
               </Grid>
               {/* Recent Deposits */}
@@ -207,7 +207,7 @@ function DashboardContent() {
                     height: 240,
                   }}
                 >
-                  <Deposits />
+                  
                 </Paper>
               </Grid>
               {/* Recent Transactions */}
@@ -217,7 +217,7 @@ function DashboardContent() {
                 </Paper>
               </Grid>
             </Grid>
-            <TransactionForm />
+            
             <Copyright sx={{ pt: 4 }} />
           </Container>
         </Box>

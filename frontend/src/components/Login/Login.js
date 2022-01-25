@@ -18,24 +18,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { authContext } from "../../providers/AuthProvider";
-
-const axios = require("axios");
-
-// async function loginUser(credentials) {
-//   return fetch("http://localhost:8080/login", {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify(credentials),
-//   }).then((data) => data.json());
-// }
-
-// async function axiosTest(user) {
-//   axios.post("/users/login", user).then(function (res) {
-//     console.log(res.data);
-//   });
-// }
+import { Title } from "@mui/icons-material";
 
 function Copyright(props) {
   return (
@@ -84,6 +67,10 @@ export default function Login({ setToken }) {
               alignItems: "center",
             }}
           >
+            <Typography component="h1" variant="h5" align="center">
+              PORTFOLIO TRACKER
+            </Typography>
+            
             <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
               <LockOutlinedIcon />
             </Avatar>

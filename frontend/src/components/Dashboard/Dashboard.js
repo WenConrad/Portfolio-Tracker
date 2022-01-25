@@ -21,8 +21,9 @@ import { mainListItems } from "./listItems";
 import Chart from "./Chart";
 import Deposits from "./Deposits";
 import Orders from "./Orders";
+import PortfolioItem from "./PortfolioItem";
 
-// const axios = require('axios');
+import axios from "axios";
 
 function Copyright(props) {
   return (
@@ -34,7 +35,7 @@ function Copyright(props) {
     >
       {"Copyright © "}
       <Link color="inherit" href="https://mui.com/">
-        Your Website
+        Portfolio Tracker
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -95,6 +96,22 @@ function DashboardContent() {
   const toggleDrawer = () => {
     setOpen(!open);
   };
+
+  const [portfolios, getPortfolios] = React.useState('');
+  React.useEffect( () => {
+    getAllPortfolios();
+  }, [] );
+
+  const getAllPortfolios = () => {
+    axios.get("/stocks/portfolio")
+    .then(function (res) {
+    //   console.log(res.data);
+      const allTransactions = res.data;
+      //add our data to state
+      getPortfolios(allTransactions);
+    })
+    .catch(error => console.error(`Error: ${error}`));
+  }
 
   return (
     <ThemeProvider theme={mdTheme}>
@@ -193,10 +210,10 @@ function DashboardContent() {
                   <Deposits />
                 </Paper>
               </Grid>
-              {/* Recent Orders */}
+              {/* Recent Portfolios */}
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-                  <Orders />
+                  <PortfolioItem portfolios={portfolios} />
                 </Paper>
               </Grid>
             </Grid>

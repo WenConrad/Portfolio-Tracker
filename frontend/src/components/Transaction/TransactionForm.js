@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { FormControl, TextField, Button, Input, InputLabel } from '@mui/material';
+import { FormControl, TextField, Button, Input, MenuItem } from '@mui/material';
 import DateTimePicker from '@mui/lab/DateTimePicker';
 import DateAdapter from '@mui/lab/AdapterMoment';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
@@ -9,21 +9,34 @@ import axios from 'axios';
 
 function addTransaction(user) {
     axios.post("/stocks/transactions/new", user).then(function (res) {
-      console.log(res.data);
+    //   console.log(res.data);
     });
   }
 
+const  types = [
+    { value: 'SELL', label: 'SELL'},
+    { value: 'BUY', label: 'BUY'}
+]
 
 export default function TransactionForm() {
   // console.log(props)
-  const [time, setTime] = React.useState(new Date().now);
+  const [type, setType] = React.useState('BUY');
+  const [value, setValue] = React.useState(new Date());
 
   const handleChange = (newValue) => {
-    setTime(newValue);
+    setValue(newValue);
+  };
+  
+  const handleTypeChange = (newType) => {
+    setType(newType.target.value);
   };
 
-  const transaction = {date: time, ticker:'XIA', type:'BUY', price:12345, quantity:26, portfolio_name:'TFSA'}
+  let ticker='AAPL', price=16545, quantity=213, portfolio='TRESP';
+  let transaction = {date: value, ticker:ticker, type:type, price:price, quantity:quantity, portfolio_name:portfolio}
+  
   const handleSubmit = (event) => {
+      transaction = {date: value, ticker:ticker, type:type, price:price, quantity:quantity, portfolio_name:portfolio}
+      console.log(value);
     event.preventDefault();
     addTransaction(transaction);
   }
@@ -35,22 +48,30 @@ export default function TransactionForm() {
           <DateTimePicker
           id="inputDate"
           label="Date&Time picker"
-          time={time}
+          value={value}
           onChange={handleChange}
           renderInput={(params) => <TextField {...params} />}
           />
           </LocalizationProvider>
+         
+          <TextField required id='inputType' label='Portfolio Name' onChange={(e) =>{portfolio=e.target.value}}></TextField>
+          <TextField required id='inputType' label='Ticker' onChange={(e) =>{ticker=e.target.value}}></TextField>
+          <TextField required id='inputType' label='Price' inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }} onChange={(e) =>{price=e.target.value}}></TextField>
+          <TextField required id='inputType' label='Quantity' inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }} onChange={(e) =>{quantity=e.target.value}}></TextField>
 
-
-          
-          <TextField id='inputType' label='Ticker'></TextField>
-          <TextField id='inputType' label='Type'></TextField>
-          <TextField id='inputType' label='Price'></TextField>
-          <TextField id='inputType' label='Quantity'></TextField>
-          <TextField id='inputType' label='Portfolio Name'></TextField>
-          
-
-          
+          <TextField 
+          required
+          id='inputType' 
+          select={type}
+          label='Type' 
+          value={type}
+          onChange={handleTypeChange} >
+            {types.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+            ))}
+          </TextField>          
           <Button onClick={handleSubmit}>Add Transaction</Button>
       </FormControl>
     </React.Fragment>
