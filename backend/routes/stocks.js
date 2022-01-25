@@ -8,7 +8,6 @@ router.get("/", function (req, res, next) {
 });
 
 router.get("/transactions", function (req, res, next) {
-  // console.log(req.session.userId)
   let user = req.session.userId;
   database.getTransactions(user).then((result) => {
     res.json(result);
@@ -16,6 +15,7 @@ router.get("/transactions", function (req, res, next) {
 });
 
 router.post("/transactions/new", function (req, res, next) {
+  console.log(req.body);
   console.log(req.session.userId);
   let user = req.session.userId;
   database.addTransaction(user, req.body).then((result) => {
