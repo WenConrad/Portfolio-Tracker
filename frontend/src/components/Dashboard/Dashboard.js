@@ -26,6 +26,7 @@ import { AppBar, Drawer } from "../Template/Template";
 
 import PositionListItem from "./PositionListItem";
 import { authContext } from "../../providers/AuthProvider";
+import { portfoliosContext } from "../../providers/PortfolioProvider";
 
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -35,6 +36,8 @@ const mdTheme = createTheme();
 
 function DashboardContent() {
   const { logout } = React.useContext(authContext);
+  const { portfolios } = React.useContext(portfoliosContext);
+  console.log(portfolios);
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {

@@ -11,8 +11,7 @@ const PortfolioProvider = function (props) {
     return axios
       .get("/stocks/portfolio")
       .then((res) => {
-        const portfolioList = res.data.map((portfolio) => portfolio.name);
-        setPortfolios(portfolioList);
+        setPortfolios(res.data);
       })
       .catch((error) => console.error(`Error: ${error}`));
   };

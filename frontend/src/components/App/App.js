@@ -30,8 +30,11 @@ function App() {
         navigate("dashboard");
       }
     });
-    getPortfolios();
   }, []);
+
+  useEffect(() => {
+    getPortfolios();
+  }, [auth]);
 
   return (
     <div className="wrapper">

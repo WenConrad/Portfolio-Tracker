@@ -25,12 +25,15 @@ import { AppBar, Drawer } from "../Template/Template";
 
 import TransactionListItem from "./TransactionListItem";
 import TransactionForm from "./TransactionForm";
-
+import { portfoliosContext } from "../../providers/PortfolioProvider";
+import { useContext } from "react";
 import axios from "axios";
 
 const mdTheme = createTheme();
 
 function DashboardContent() {
+  const { portfolios } = useContext(portfoliosContext);
+  console.log(portfolios);
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);

@@ -23,10 +23,10 @@ const types = [
 export default function TransactionForm() {
   // console.log(props)
   const { portfolios } = React.useContext(portfoliosContext);
-  const [portfolioName, setPortfolioName] = React.useState(portfolios[0]);
+  const [portfolioName, setPortfolioName] = React.useState(portfolios[0].id);
   const [type, setType] = React.useState("BUY");
   const [value, setValue] = React.useState(new Date("2022-1-24"));
-
+  console.log(portfolios);
   const handleChange = (newValue) => {
     setValue(moment(newValue).format("YYYY-MM-DD"));
   };
@@ -90,11 +90,13 @@ export default function TransactionForm() {
           value={portfolioName}
           onChange={handlePortfolioChange}
         >
-          {portfolios.map((name) => (
-            <MenuItem key={name} value={name}>
-              {name}
-            </MenuItem>
-          ))}
+          {portfolios.map((port) => {
+            return (
+              <MenuItem key={port.id} value={port.id}>
+                {port.name}
+              </MenuItem>
+            );
+          })}
         </TextField>
         <TextField
           required
