@@ -11,9 +11,11 @@ import TransactionList from "../Transaction/TransactionList";
 // import useToken from "./useToken";
 import { authContext } from "../../providers/AuthProvider";
 import { render } from "react-dom";
+import { portfoliosContext } from "../../providers/PortfolioProvider";
 
 function App() {
   const { auth, user, login, checkAuth, logout } = useContext(authContext);
+  const { getPortfolios } = useContext(portfoliosContext);
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
@@ -26,6 +28,7 @@ function App() {
         navigate("dashboard");
       }
     });
+    getPortfolios();
   }, []);
 
   const logoutRedirect = function () {
@@ -46,7 +49,6 @@ function App() {
         <Route path="/transactions" element={<TransactionList />} />
         <Route path="/portfolio/:name" element={<Dashboard />} />
       </Routes>
-      <button onClick={logoutRedirect}>logout test button</button>
     </div>
   );
 }

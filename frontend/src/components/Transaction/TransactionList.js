@@ -97,21 +97,22 @@ function DashboardContent() {
     setOpen(!open);
   };
 
-  const [transactions, getTransactions] = React.useState('');
-  React.useEffect( () => {
+  const [transactions, setTransactions] = React.useState("");
+  React.useEffect(() => {
     getAllTransactions();
-  }, [] );
+  }, []);
 
   const getAllTransactions = () => {
-    axios.get("/stocks/transactions")
-    .then(function (res) {
-    //   console.log(res.data);
-      const allTransactions = res.data;
-      //add our data to state
-      getTransactions(allTransactions);
-    })
-    .catch(error => console.error(`Error: ${error}`));
-  }
+    axios
+      .get("/stocks/transactions")
+      .then(function (res) {
+        //   console.log(res.data);
+        const allTransactions = res.data;
+        //add our data to state
+        setTransactions(allTransactions);
+      })
+      .catch((error) => console.error(`Error: ${error}`));
+  };
 
   return (
     <ThemeProvider theme={mdTheme}>
@@ -167,7 +168,6 @@ function DashboardContent() {
           <Divider />
           <List>{mainListItems}</List>
           <Divider />
-          
         </Drawer>
         <Box
           component="main"
@@ -191,7 +191,6 @@ function DashboardContent() {
                     p: 2,
                     display: "flex",
                     flexDirection: "column",
-                    
                   }}
                 >
                   <TransactionForm />
@@ -206,18 +205,16 @@ function DashboardContent() {
                     flexDirection: "column",
                     height: 240,
                   }}
-                >
-                  
-                </Paper>
+                ></Paper>
               </Grid>
               {/* Recent Transactions */}
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-                  <TransactionListItem transactions={transactions}/>
+                  <TransactionListItem transactions={transactions} />
                 </Paper>
               </Grid>
             </Grid>
-            
+
             <Copyright sx={{ pt: 4 }} />
           </Container>
         </Box>

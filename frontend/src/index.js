@@ -1,17 +1,21 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import AuthProvider from "./providers/AuthProvider";
 import App from "./components/App/App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 
+import AuthProvider from "./providers/AuthProvider";
+import PortfolioProvider from "./providers/PortfolioProvider";
+
 ReactDOM.render(
   <React.StrictMode>
     <AuthProvider>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <PortfolioProvider>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </PortfolioProvider>
     </AuthProvider>
   </React.StrictMode>,
   document.getElementById("root")

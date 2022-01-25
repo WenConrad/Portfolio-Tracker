@@ -17,13 +17,14 @@ import Link from "@mui/material/Link";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import { mainListItems } from "./listItems";
+import { mainListItems, LogOutItem } from "./listItems";
 import Chart from "./Chart";
 import Deposits from "./Deposits";
 import Orders from "./Orders";
 import PositionListItem from "./PositionListItem";
+import { authContext } from "../../providers/AuthProvider";
 
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import axios from "axios";
 
@@ -94,30 +95,41 @@ const Drawer = styled(MuiDrawer, {
 const mdTheme = createTheme();
 
 function DashboardContent() {
+  const { logout } = React.useContext(authContext);
+  const navigate = useNavigate();
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
   };
 
   let params = useParams();
-  
-  const [positions, getPositions] = React.useState('');
-  React.useEffect( () => {
+
+  const [positions, getPositions] = React.useState("");
+  React.useEffect(() => {
     console.log(params.name);
-    let url = params.name ? `/stocks/portfolio/${params.name}` : '/stocks/positions'
+    let url = params.name
+      ? `/stocks/portfolio/${params.name}`
+      : "/stocks/positions";
     getAllPositions(url);
-  }, [] );
+  }, []);
 
   const getAllPositions = (url) => {
-    axios.get(url)
-    .then(function (res) {
-    //   console.log(res.data);
-      const allPositions = res.data;
-      //add our data to state
-      getPositions(allPositions);
-    })
-    .catch(error => console.error(`Error: ${error}`));
-  }
+    axios
+      .get(url)
+      .then(function (res) {
+        //   console.log(res.data);
+        const allPositions = res.data;
+        //add our data to state
+        getPositions(allPositions);
+      })
+      .catch((error) => console.error(`Error: ${error}`));
+  };
+
+  const logoutRedirect = function () {
+    logout().then((res) => {
+      navigate("/login");
+    });
+  };
 
   return (
     <ThemeProvider theme={mdTheme}>
@@ -173,7 +185,9 @@ function DashboardContent() {
           <Divider />
           <List>{mainListItems}</List>
           <Divider />
-          
+          <List>
+            <LogOutItem signout={logoutRedirect} />
+          </List>
         </Drawer>
         <Box
           component="main"
@@ -193,7 +207,7 @@ function DashboardContent() {
               {/* All Positions */}
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-                  <PositionListItem positions={positions}/>
+                  <PositionListItem positions={positions} />
                 </Paper>
               </Grid>
             </Grid>
