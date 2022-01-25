@@ -16,7 +16,7 @@ function preventDefault(event) {
 export default function PortfolioItem(props) {
   // const [row, setRow] = React.useState([]);
   // console.log(props)
-  const displayTransaction = (props) => {
+  const displayPortfolio = (props) => {
     const { portfolios } = props;
     if (portfolios && portfolios.length > 0) {
       return (

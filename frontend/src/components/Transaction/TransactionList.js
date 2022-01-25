@@ -53,19 +53,6 @@ function DashboardContent() {
       .catch((error) => console.error(`Error: ${error}`));
   };
 
-  const getAllPortfolios = () => {
-    axios
-      .get("/stocks/portfolio")
-      .then(function (res) {
-        console.log("GET /stocks/portfolio");
-        console.log(res.data);
-        const allTransactions = res.data;
-        //add our data to state
-        getPortfolios(allTransactions);
-      })
-      .catch((error) => console.error(`Error: ${error}`));
-  };
-
   return (
     <ThemeProvider theme={mdTheme}>
       <Box sx={{ display: "flex" }}>
@@ -145,7 +132,7 @@ function DashboardContent() {
                     flexDirection: "column",
                   }}
                 >
-                  <TransactionForm portfoliolist={portfolios} />
+                  <TransactionForm />
                 </Paper>
               </Grid>
               {/* Recent Deposits */}

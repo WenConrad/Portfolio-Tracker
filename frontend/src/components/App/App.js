@@ -11,11 +11,8 @@ import PositionList from "../Position/PositionList";
 import TransactionList from "../Transaction/TransactionList";
 // authProvider
 import { authContext } from "../../providers/AuthProvider";
-<<<<<<< HEAD
 import { render } from "react-dom";
 import { portfoliosContext } from "../../providers/PortfolioProvider";
-=======
->>>>>>> master
 
 function App() {
   const { auth, user, login, checkAuth, logout } = useContext(authContext);

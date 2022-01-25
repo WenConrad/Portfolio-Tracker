@@ -1,29 +1,13 @@
-<<<<<<< HEAD:frontend/src/components/Dashboard/listItems.js
 import * as React from "react";
+// mui components
 import ListItem from "@mui/material/ListItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import ListSubheader from "@mui/material/ListSubheader";
-import DashboardIcon from "@mui/icons-material/Dashboard";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import PeopleIcon from "@mui/icons-material/People";
-import BarChartIcon from "@mui/icons-material/BarChart";
-import LayersIcon from "@mui/icons-material/Layers";
 import ShowChartIcon from "@mui/icons-material/ShowChart";
 import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 import AssignmentIcon from "@mui/icons-material/Assignment";
-=======
-import * as React from 'react';
-// mui components
-import ListItem from '@mui/material/ListItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import ListItemText from '@mui/material/ListItemText';
-import ListSubheader from '@mui/material/ListSubheader';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import ShowChartIcon from '@mui/icons-material/ShowChart';
-import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
-import AssignmentIcon from '@mui/icons-material/Assignment';
->>>>>>> master:frontend/src/components/Template/listItems.js
 // import Link from "@mui/material/Link";
 import { Link } from "react-router-dom";
 

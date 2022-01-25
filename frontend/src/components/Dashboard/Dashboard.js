@@ -16,25 +16,20 @@ import Paper from "@mui/material/Paper";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-<<<<<<< HEAD
-import { mainListItems, LogOutItem } from "./listItems";
 import Chart from "./Chart";
 import Deposits from "./Deposits";
 import Orders from "./Orders";
-=======
 // template components
-import { mainListItems } from "../Template/listItems";
+import { mainListItems, LogOutItem } from "../Template/listItems";
 import Copyright from "../Template/Template";
 import { AppBar, Drawer } from "../Template/Template";
 
->>>>>>> master
 import PositionListItem from "./PositionListItem";
 import { authContext } from "../../providers/AuthProvider";
 
 import { useNavigate, useParams } from "react-router-dom";
 
 import axios from "axios";
-
 
 const mdTheme = createTheme();
 
@@ -51,7 +46,9 @@ function DashboardContent() {
   const [positions, getPositions] = React.useState("");
   React.useEffect(() => {
     console.log(params.name);
-    let url = params.name ? `/stocks/portfolio/${params.name}` : '/stocks/positions'
+    let url = params.name
+      ? `/stocks/portfolio/${params.name}`
+      : "/stocks/positions";
     // let url = '/stocks/positions'
     getAllPositions(url);
   }, []);
