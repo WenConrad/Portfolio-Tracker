@@ -2,13 +2,14 @@ const express = require("express");
 const router = express.Router();
 
 const database = require("../queries");
+const stockAPI = require("../stock-prices");
 
 router.get("/", function (req, res, next) {
   res.send("something");
 });
 
 router.get("/transactions", function (req, res, next) {
-  console.log(req.session)
+  console.log(req.session);
   let user = req.session.userId;
   database.getTransactions(user).then((result) => {
     res.json(result);
@@ -42,10 +43,24 @@ router.get("/portfolio/", function (req, res, next) {
 });
 
 router.get("/portfolio/:name", function (req, res, next) {
-  console.log(req.params)
+  console.log(req.params);
   let user = req.session.userId;
   database.getPositionsByPortfolio(user, req.params.name).then((result) => {
     res.json(result);
+  });
+});
+
+router.post("/prices", function (req, res, next) {
+  console.log(req.body);
+  stockAPI.getStockPrice(req.body).then((stocks) => {
+    res.json(stocks);
+  });
+});
+
+router.post("/search", function (req, res, next) {
+  console.log(req.body);
+  stockAPI.getSymbol(req.body).then((stocks) => {
+    res.json(stocks);
   });
 });
 
