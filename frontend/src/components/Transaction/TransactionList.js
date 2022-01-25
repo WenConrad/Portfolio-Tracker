@@ -191,10 +191,10 @@ function DashboardContent() {
                     p: 2,
                     display: "flex",
                     flexDirection: "column",
-                    height: 240,
+                    
                   }}
                 >
-                  
+                  <TransactionForm />
                 </Paper>
               </Grid>
               {/* Recent Deposits */}
@@ -217,7 +217,7 @@ function DashboardContent() {
                 </Paper>
               </Grid>
             </Grid>
-            <TransactionForm />
+            
             <Copyright sx={{ pt: 4 }} />
           </Container>
         </Box>

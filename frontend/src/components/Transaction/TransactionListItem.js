@@ -26,9 +26,9 @@ export default function TransactionListItem(props) {
                         <TableRow key={transaction.id}>
                             <TableCell>{transaction.date}</TableCell>
                             <TableCell>{transaction.portfolio_name}</TableCell>
+                            <TableCell>{transaction.ticker}</TableCell>
                             <TableCell>{transaction.price}</TableCell>
                             <TableCell>{transaction.quantity}</TableCell>
-                            <TableCell>{transaction.ticker}</TableCell>
                             <TableCell align="right">{transaction.type}</TableCell>
                         </TableRow>
                     )
@@ -46,9 +46,9 @@ export default function TransactionListItem(props) {
           <TableRow>
             <TableCell>Date</TableCell>
             <TableCell>Portfolio</TableCell>
+            <TableCell>Ticker</TableCell>
             <TableCell>Price</TableCell>
             <TableCell>Quantity</TableCell>
-            <TableCell>Ticker</TableCell>
             <TableCell align="right">Type</TableCell>
           </TableRow>
         </TableHead>

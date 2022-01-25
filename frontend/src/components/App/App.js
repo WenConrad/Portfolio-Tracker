@@ -8,7 +8,6 @@ import SignUp from "../SignUp/SignUp";
 import Preferences from "../Preferences/Preferences";
 import PositionList from "../Position/PositionList";
 import TransactionList from "../Transaction/TransactionList";
-// import SignIn from "../SignIn";
 // import useToken from "./useToken";
 import { authContext } from "../../providers/AuthProvider";
 import { render } from "react-dom";

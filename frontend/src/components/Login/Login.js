@@ -18,6 +18,7 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { authContext } from "../../providers/AuthProvider";
+import { Title } from "@mui/icons-material";
 
 const axios = require("axios");
 
@@ -84,6 +85,10 @@ export default function Login({ setToken }) {
               alignItems: "center",
             }}
           >
+            <Typography component="h1" variant="h5" align="center">
+              PORTFOLIO TRACKER
+            </Typography>
+            
             <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
               <LockOutlinedIcon />
             </Avatar>
