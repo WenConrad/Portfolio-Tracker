@@ -31,6 +31,13 @@ router.get("/positions", function (req, res, next) {
   });
 });
 
+router.get("/portfolio/", function (req, res, next) {
+  let user = req.session.userId;
+  database.getPortfolios(user).then((result) => {
+    res.json(result);
+  });
+});
+
 router.get("/portfolio/:name", function (req, res, next) {
   let user = req.session.user;
   database.getPositionsByPortfolio(user, req.params.name).then((result) => {

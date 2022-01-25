@@ -17,7 +17,7 @@ export default function TransactionListItem(props) {
     // console.log(props)
     const displayTransaction = (props) => {
         const {transactions} = props;
-        if (transactions.length > 0) {
+        if (transactions && transactions.length > 0) {
             return(
                 <TableBody>
                 {transactions.map( (transaction) => {

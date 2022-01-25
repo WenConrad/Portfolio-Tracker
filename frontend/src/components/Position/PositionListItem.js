@@ -39,7 +39,7 @@ export default function PositionListItem(props) {
   // console.log(props)
   const displayPosition = (props) => {
     const { positions } = props;
-    if (positions.length > 0) {
+    if (positions && positions.length > 0) {
       return (
         <TableBody>
           {positions.map((position) => {

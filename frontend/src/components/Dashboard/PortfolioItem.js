@@ -5,31 +5,31 @@ import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
-import Title from '../Dashboard/Title';
+import Title from './Title';
 
 
 function preventDefault(event) {
   event.preventDefault();
 }
 
-export default function TransactionListItem(props) {
+export default function PortfolioItem(props) {
     const [row, setRow] = React.useState([]);
     // console.log(props)
     const displayTransaction = (props) => {
-        const {transactions} = props;
-        if (transactions.length > 0) {
+        const {portfolios} = props;
+        if (portfolios && portfolios.length > 0) {
             return(
                 <TableBody>
-                {transactions.map( (transaction) => {
+                {portfolios.map( (portfolio) => {
                     // console.log(transaction);
                     return(
-                        <TableRow key={transaction.id}>
-                            <TableCell>{transaction.date}</TableCell>
-                            <TableCell>{transaction.portfolio_name}</TableCell>
-                            <TableCell>{transaction.ticker}</TableCell>
-                            <TableCell>{transaction.price}</TableCell>
-                            <TableCell>{transaction.quantity}</TableCell>
-                            <TableCell align="right">{transaction.type}</TableCell>
+                        <TableRow key={portfolio.id}>
+                            <TableCell>{portfolio.date}</TableCell>
+                            <TableCell>{portfolio.portfolio_name}</TableCell>
+                            <TableCell>{portfolio.ticker}</TableCell>
+                            <TableCell>{portfolio.price}</TableCell>
+                            <TableCell>{portfolio.quantity}</TableCell>
+                            <TableCell align="right">{portfolio.type}</TableCell>
                         </TableRow>
                     )
                 })}
@@ -40,7 +40,7 @@ export default function TransactionListItem(props) {
     
   return (
     <React.Fragment>
-      <Title>Recent Transactions</Title>
+      <Title>Your Portfolios</Title>
       <Table size="small">
         <TableHead>
           <TableRow>
