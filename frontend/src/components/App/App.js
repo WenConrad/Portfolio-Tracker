@@ -31,12 +31,6 @@ function App() {
     getPortfolios();
   }, []);
 
-  const logoutRedirect = function () {
-    logout().then((res) => {
-      navigate("/login");
-    });
-  };
-
   return (
     <div className="wrapper">
       <Routes>
