@@ -28,8 +28,6 @@ import TransactionForm from "./TransactionForm";
 
 import axios from "axios";
 
-
-
 const mdTheme = createTheme();
 
 function DashboardContent() {
@@ -42,9 +40,8 @@ function DashboardContent() {
   const [portfolios, getPortfolios] = React.useState('');
   const [transactions, getTransactions] = React.useState('');
   React.useEffect( () => {
+    getAllPortfolios();
     getAllTransactions();
-    let url = '/stocks/portfolio';
-    getAllPortfolios(url);
   }, [] );
 
   const getAllTransactions = () => {
@@ -58,9 +55,10 @@ function DashboardContent() {
     .catch(error => console.error(`Error: ${error}`));
   }
 
-  const getAllPortfolios = (url) => {
-    axios.get(url)
+  const getAllPortfolios = () => {
+    axios.get("/stocks/portfolio")
     .then(function (res) {
+      console.log("GET /stocks/portfolio");
       console.log(res.data);
       const allTransactions = res.data;
       //add our data to state

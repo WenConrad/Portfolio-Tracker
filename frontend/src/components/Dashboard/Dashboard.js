@@ -1,10 +1,8 @@
 import * as React from "react";
 // mui components
-import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import MuiDrawer from "@mui/material/Drawer";
 import Box from "@mui/material/Box";
-import MuiAppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
@@ -14,19 +12,18 @@ import Badge from "@mui/material/Badge";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
-
+// mui icons
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-
-import { mainListItems } from "../Template/listItems";
 // template components
+import { mainListItems } from "../Template/listItems";
 import Copyright from "../Template/Template";
 import { AppBar, Drawer } from "../Template/Template";
 
 import PositionListItem from "./PositionListItem";
 
-// import { useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 import axios from "axios";
 
@@ -39,13 +36,13 @@ function DashboardContent() {
     setOpen(!open);
   };
 
-  // let params = useParams();
+  let params = useParams();
   
   const [positions, getPositions] = React.useState('');
   React.useEffect( () => {
-    // console.log(params.name);
-    // let url = params.name ? `/stocks/portfolio/${params.name}` : '/stocks/positions'
-    let url = '/stocks/positions'
+    console.log(params.name);
+    let url = params.name ? `/stocks/portfolio/${params.name}` : '/stocks/positions'
+    // let url = '/stocks/positions'
     getAllPositions(url);
   }, [] );
 

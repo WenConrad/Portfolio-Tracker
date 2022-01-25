@@ -36,7 +36,7 @@ export default function PositionListItem(props) {
 
   return (
     <React.Fragment>
-      <Title>Positions</Title>
+      <Title>All Positions</Title>
       <Table size="small">
         <TableHead>
           <TableRow>

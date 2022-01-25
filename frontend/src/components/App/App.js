@@ -42,8 +42,9 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/portfolio/:name" element={<Dashboard />} />
         <Route path="/positions" element={<PositionList />} />
-        <Route path="/portfolio/:name" element={<PositionList />} />
+        {/* <Route path="/portfolio/:name" element={<PositionList />} /> */}
         <Route path="/transactions" element={<TransactionList />} />
         <Route path="/preferences" element={<Preferences />} />
       </Routes>
