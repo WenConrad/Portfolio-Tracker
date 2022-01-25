@@ -14,29 +14,29 @@ function preventDefault(event) {
 }
 
 export default function PortfolioItem(props) {
-    // const [row, setRow] = React.useState([]);
-    // console.log(props)
-    const displayTransaction = (props) => {
-        const {portfolios} = props;
-        if (portfolios && portfolios.length > 0) {
-            return(
-                <TableBody>
-                {portfolios.map( (portfolio) => {
-                    // console.log(transaction);
-                    return(
-                        <TableRow key={portfolio.id}>
-                            
-                            <TableCell>
-                              <RLink to={"/portfolio/" + portfolio.name}>{portfolio.name}</RLink>
-                            </TableCell>
-                            
-                        </TableRow>
-                    )
-                })}
-                </TableBody>
-            )
-        }
-    };
+  // const [row, setRow] = React.useState([]);
+  // console.log(props)
+  const displayTransaction = (props) => {
+    const { portfolios } = props;
+    if (portfolios && portfolios.length > 0) {
+      return (
+        <TableBody>
+          {portfolios.map((portfolio) => {
+            // console.log(transaction);
+            return (
+              <TableRow key={portfolio.id}>
+                <TableCell>
+                  <RLink to={"/portfolio/" + portfolio.name}>
+                    {portfolio.name}
+                  </RLink>
+                </TableCell>
+              </TableRow>
+            );
+          })}
+        </TableBody>
+      );
+    }
+  };
 
   return (
     <React.Fragment>
@@ -44,11 +44,8 @@ export default function PortfolioItem(props) {
       <Table size="small">
         <TableHead>
           <TableRow>
-            
             <TableCell>Portfolio</TableCell>
-            
-            
-            
+
             <TableCell align="right">Type</TableCell>
           </TableRow>
         </TableHead>
