@@ -12,7 +12,7 @@ function preventDefault(event) {
 }
 
 export default function PortfolioItem(props) {
-    const [row, setRow] = React.useState([]);
+    // const [row, setRow] = React.useState([]);
     // console.log(props)
     const displayTransaction = (props) => {
         const {portfolios} = props;
@@ -23,12 +23,9 @@ export default function PortfolioItem(props) {
                     // console.log(transaction);
                     return(
                         <TableRow key={portfolio.id}>
-                            <TableCell>{portfolio.date}</TableCell>
-                            <TableCell>{portfolio.portfolio_name}</TableCell>
-                            <TableCell>{portfolio.ticker}</TableCell>
-                            <TableCell>{portfolio.price}</TableCell>
-                            <TableCell>{portfolio.quantity}</TableCell>
-                            <TableCell align="right">{portfolio.type}</TableCell>
+                            
+                            <TableCell>{portfolio.name}</TableCell>
+                            
                         </TableRow>
                     )
                 })}
@@ -43,11 +40,11 @@ export default function PortfolioItem(props) {
       <Table size="small">
         <TableHead>
           <TableRow>
-            <TableCell>Date</TableCell>
+            
             <TableCell>Portfolio</TableCell>
-            <TableCell>Ticker</TableCell>
-            <TableCell>Price</TableCell>
-            <TableCell>Quantity</TableCell>
+            
+            
+            
             <TableCell align="right">Type</TableCell>
           </TableRow>
         </TableHead>

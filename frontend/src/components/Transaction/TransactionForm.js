@@ -6,6 +6,7 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import Title from '../Dashboard/Title';
 
 import axios from 'axios';
+import moment from 'moment';
 
 function addTransaction(user) {
     axios.post("/stocks/transactions/new", user).then(function (res) {
@@ -21,23 +22,23 @@ const  types = [
 export default function TransactionForm() {
   // console.log(props)
   const [type, setType] = React.useState('BUY');
-  const [value, setValue] = React.useState(new Date());
+  const [value, setValue] = React.useState(new Date('2022-1-24'));
 
   const handleChange = (newValue) => {
-    setValue(newValue);
+    setValue(moment(newValue).format('YYYY-MM-DD'));
   };
   
   const handleTypeChange = (newType) => {
     setType(newType.target.value);
   };
 
-  let ticker='AAPL', price=16545, quantity=213, portfolio='TRESP';
-  let transaction = {date: value, ticker:ticker, type:type, price:price, quantity:quantity, portfolio_name:portfolio}
+  let ticker='AAPL', price=16545, quantity=213, portfolio='2';
+  let transaction = {date: value, ticker:ticker, type:type, price:price, quantity:quantity, portfolio_id:portfolio}
   
   const handleSubmit = (event) => {
-      transaction = {date: value, ticker:ticker, type:type, price:price, quantity:quantity, portfolio_name:portfolio}
+      transaction = {date: value, ticker:ticker, type:type, price:price, quantity:quantity, portfolio_id:portfolio}
       console.log(value);
-    event.preventDefault();
+    // event.preventDefault();
     addTransaction(transaction);
   }
   return (
