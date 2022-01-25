@@ -1,7 +1,6 @@
 import React, { useState, useContext } from "react";
 import "./Login.css";
 import { useNavigate } from "react-router-dom";
-
 // mui components
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
@@ -16,10 +15,8 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-
 // template components
 import Copyright from "../Template/Template";
-
 // authProvider
 import { authContext } from "../../providers/AuthProvider";
 

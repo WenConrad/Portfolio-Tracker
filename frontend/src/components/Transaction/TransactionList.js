@@ -1,5 +1,4 @@
 import * as React from "react";
-
 // mui components
 import { styled, createTheme, ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -19,61 +18,17 @@ import Link from "@mui/material/Link";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
+// template components
 import { mainListItems } from "../Template/listItems";
+import Copyright from "../Template/Template";
+import { AppBar, Drawer } from "../Template/Template";
 
 import TransactionListItem from "./TransactionListItem";
 import TransactionForm from "./TransactionForm";
 
-import  Copyright  from "../Template/Template";
-
 import axios from "axios";
 
 
-const drawerWidth = 240;
-
-const AppBar = styled(MuiAppBar, {
-  shouldForwardProp: (prop) => prop !== "open",
-})(({ theme, open }) => ({
-  zIndex: theme.zIndex.drawer + 1,
-  transition: theme.transitions.create(["width", "margin"], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(["width", "margin"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}));
-
-const Drawer = styled(MuiDrawer, {
-  shouldForwardProp: (prop) => prop !== "open",
-})(({ theme, open }) => ({
-  "& .MuiDrawer-paper": {
-    position: "relative",
-    whiteSpace: "nowrap",
-    width: drawerWidth,
-    transition: theme.transitions.create("width", {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-    boxSizing: "border-box",
-    ...(!open && {
-      overflowX: "hidden",
-      transition: theme.transitions.create("width", {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.leavingScreen,
-      }),
-      width: theme.spacing(7),
-      [theme.breakpoints.up("sm")]: {
-        width: theme.spacing(9),
-      },
-    }),
-  },
-}));
 
 const mdTheme = createTheme();
 
@@ -83,10 +38,13 @@ function DashboardContent() {
     setOpen(!open);
   };
 
+
   const [portfolios, getPortfolios] = React.useState('');
   const [transactions, getTransactions] = React.useState('');
   React.useEffect( () => {
     getAllTransactions();
+    let url = '/stocks/portfolio';
+    getAllPortfolios(url);
   }, [] );
 
   const getAllTransactions = () => {
@@ -96,6 +54,17 @@ function DashboardContent() {
       const allTransactions = res.data;
       //add our data to state
       getTransactions(allTransactions);
+    })
+    .catch(error => console.error(`Error: ${error}`));
+  }
+
+  const getAllPortfolios = (url) => {
+    axios.get(url)
+    .then(function (res) {
+      console.log(res.data);
+      const allTransactions = res.data;
+      //add our data to state
+      getPortfolios(allTransactions);
     })
     .catch(error => console.error(`Error: ${error}`));
   }
@@ -181,7 +150,7 @@ function DashboardContent() {
                     
                   }}
                 >
-                  <TransactionForm portfolios={portfolios} />
+                  <TransactionForm portfoliolist={portfolios} />
                 </Paper>
               </Grid>
               {/* Recent Deposits */}

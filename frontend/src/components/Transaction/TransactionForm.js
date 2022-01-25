@@ -19,8 +19,14 @@ const  types = [
     { value: 'BUY', label: 'BUY'}
 ]
 
-export default function TransactionForm() {
-  // console.log(props)
+export default function TransactionForm(props) {
+  console.log(props)
+  let {portfoliolist} = props;
+  console.log(portfoliolist.portfolios)
+  if (!portfoliolist) {
+    portfoliolist = [];
+  }
+  const [portfolio, setPortfolio] = React.useState();
   const [type, setType] = React.useState('BUY');
   const [value, setValue] = React.useState(new Date('2022-1-24'));
 
@@ -32,7 +38,7 @@ export default function TransactionForm() {
     setType(newType.target.value);
   };
 
-  let ticker='AAPL', price=16545, quantity=213, portfolio='test';
+  let ticker='AAPL', price=16545, quantity=213;
   let transaction = {date: value, ticker:ticker, type:type, price:price, quantity:quantity, portfolio_name:portfolio}
   
   const handleSubmit = (event) => {
@@ -41,6 +47,7 @@ export default function TransactionForm() {
     // event.preventDefault();
     addTransaction(transaction);
   }
+
   return (
     <React.Fragment>
       <Title>Add Transaction</Title>
@@ -55,7 +62,20 @@ export default function TransactionForm() {
           />
           </LocalizationProvider>
          
-          <TextField required id='inputType' label='Portfolio Name' onChange={(e) =>{portfolio=e.target.value}}></TextField>
+          <TextField 
+          required
+          id='inputType' 
+          select={portfolio}
+          label='Portfolio Name' 
+          value={portfolio}
+          onChange={(e) => {setPortfolio(e.target.value)}} >
+            {portfoliolist.map((portfolio) => (
+            <MenuItem key={portfolio.id} value={portfolio.name}>
+              {portfolio.name}
+            </MenuItem>
+            ))}
+          </TextField>          
+          {/* <TextField required id='inputType' label='Portfolio Name' onChange={(e) =>{portfolio=e.target.value}}></TextField> */}
           <TextField required id='inputType' label='Ticker' onChange={(e) =>{ticker=e.target.value}}></TextField>
           <TextField required id='inputType' label='Price' inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }} onChange={(e) =>{price=e.target.value}}></TextField>
           <TextField required id='inputType' label='Quantity' inputProps={{ inputMode: 'numeric', pattern: '[0-9]*' }} onChange={(e) =>{quantity=e.target.value}}></TextField>
