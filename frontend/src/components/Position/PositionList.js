@@ -19,8 +19,7 @@ import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { mainListItems } from "../Dashboard/listItems";
 
-import Deposits from "../Dashboard//Deposits";
-import PositionListItem from "./PositionListItem";
+import PortfolioItem from "./PortfolioItem";
 
 import axios from "axios";
 
@@ -96,18 +95,18 @@ function DashboardContent() {
     setOpen(!open);
   };
 
-  const [positions, getPositions] = React.useState('');
+  const [portfolios, getPortfolios] = React.useState('');
   React.useEffect( () => {
-    getAllPositions();
+    getAllPortfolios();
   }, [] );
 
-  const getAllPositions = () => {
-    axios.get("/stocks/positions")
+  const getAllPortfolios = () => {
+    axios.get("/stocks/portfolio")
     .then(function (res) {
     //   console.log(res.data);
-      const allPositions = res.data;
+      const allTransactions = res.data;
       //add our data to state
-      getPositions(allPositions);
+      getPortfolios(allTransactions);
     })
     .catch(error => console.error(`Error: ${error}`));
   }
@@ -183,36 +182,10 @@ function DashboardContent() {
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
-              {/* Chart */}
-              <Grid item xs={12} md={8} lg={9}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: "flex",
-                    flexDirection: "column",
-                    height: 240,
-                  }}
-                >
-                  <><h3>Positions!</h3></>
-                </Paper>
-              </Grid>
-              {/* Recent Deposits */}
-              <Grid item xs={12} md={4} lg={3}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: "flex",
-                    flexDirection: "column",
-                    height: 240,
-                  }}
-                >
-                  
-                </Paper>
-              </Grid>
-              {/* Recent Transactions */}
+              {/* Portfolios */}
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-                  <PositionListItem positions={positions}/>
+                  <PortfolioItem portfolios={portfolios} />
                 </Paper>
               </Grid>
             </Grid>

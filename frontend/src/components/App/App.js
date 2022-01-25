@@ -44,6 +44,7 @@ function App() {
         <Route path="/preferences" element={<Preferences />} />
         <Route path="/positions" element={<PositionList />} />
         <Route path="/transactions" element={<TransactionList />} />
+        <Route path="/portfolio/:name" element={<Dashboard />} />
       </Routes>
       <button onClick={logoutRedirect}>logout test button</button>
     </div>

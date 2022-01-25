@@ -32,11 +32,11 @@ export default function TransactionForm() {
     setType(newType.target.value);
   };
 
-  let ticker='AAPL', price=16545, quantity=213, portfolio='2';
-  let transaction = {date: value, ticker:ticker, type:type, price:price, quantity:quantity, portfolio_id:portfolio}
+  let ticker='AAPL', price=16545, quantity=213, portfolio='test';
+  let transaction = {date: value, ticker:ticker, type:type, price:price, quantity:quantity, portfolio_name:portfolio}
   
   const handleSubmit = (event) => {
-      transaction = {date: value, ticker:ticker, type:type, price:price, quantity:quantity, portfolio_id:portfolio}
+      transaction = {date: value, ticker:ticker, type:type, price:price, quantity:quantity, portfolio_name:portfolio}
       console.log(value);
     // event.preventDefault();
     addTransaction(transaction);

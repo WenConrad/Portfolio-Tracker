@@ -42,6 +42,7 @@ router.get("/portfolio/", function (req, res, next) {
 });
 
 router.get("/portfolio/:name", function (req, res, next) {
+  console.log(req.params)
   let user = req.session.userId;
   database.getPositionsByPortfolio(user, req.params.name).then((result) => {
     res.json(result);

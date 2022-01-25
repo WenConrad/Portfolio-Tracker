@@ -6,6 +6,8 @@ import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Title from "../Dashboard/Title";
+import { Button } from "@mui/material";
+import { Link as RLink } from "react-router-dom";
 
 function preventDefault(event) {
   event.preventDefault();
@@ -24,7 +26,9 @@ export default function PortfolioItem(props) {
                     return(
                         <TableRow key={portfolio.id}>
                             
-                            <TableCell>{portfolio.name}</TableCell>
+                            <TableCell>
+                              <RLink to={"/portfolio/" + portfolio.name}>{portfolio.name}</RLink>
+                            </TableCell>
                             
                         </TableRow>
                     )

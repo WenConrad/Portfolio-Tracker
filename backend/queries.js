@@ -160,16 +160,16 @@ const getPortfolios = function (user_id) {
 };
 exports.getPortfolios = getPortfolios;
 
-const getPositionsByPortfolio = function (portfolio_id) {
+const getPositionsByPortfolio = function (user_id, portfolio_name) {
   let myQuery = `SELECT
     positions.ticker,
     SUM(positions.book_cost) as book_cost,
-    SUM(positions.quantity) as quantity,
-    portfolios.name AS portfolio_name
+    SUM(positions.quantity) as quantity
+
     FROM positions JOIN portfolios ON portfolios.id = portfolio_id
-    WHERE portfolio_id = $1
+    WHERE user_id = $1 AND portfolios.name = $2
     GROUP BY positions.ticker;`;
-  let params = [portfolio_id];
+  let params = [user_id, portfolio_name];
   return pool
     .query(myQuery, params)
     .then((result) => result.rows)

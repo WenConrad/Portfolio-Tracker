@@ -21,7 +21,9 @@ import { mainListItems } from "./listItems";
 import Chart from "./Chart";
 import Deposits from "./Deposits";
 import Orders from "./Orders";
-import PortfolioItem from "./PortfolioItem";
+import PositionListItem from "./PositionListItem";
+
+import { useParams } from "react-router-dom";
 
 import axios from "axios";
 
@@ -97,18 +99,22 @@ function DashboardContent() {
     setOpen(!open);
   };
 
-  const [portfolios, getPortfolios] = React.useState('');
+  let params = useParams();
+  
+  const [positions, getPositions] = React.useState('');
   React.useEffect( () => {
-    getAllPortfolios();
+    console.log(params.name);
+    let url = params.name ? `/stocks/portfolio/${params.name}` : '/stocks/positions'
+    getAllPositions(url);
   }, [] );
 
-  const getAllPortfolios = () => {
-    axios.get("/stocks/portfolio")
+  const getAllPositions = (url) => {
+    axios.get(url)
     .then(function (res) {
     //   console.log(res.data);
-      const allTransactions = res.data;
+      const allPositions = res.data;
       //add our data to state
-      getPortfolios(allTransactions);
+      getPositions(allPositions);
     })
     .catch(error => console.error(`Error: ${error}`));
   }
@@ -184,36 +190,10 @@ function DashboardContent() {
           <Toolbar />
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
-              {/* Chart */}
-              <Grid item xs={12} md={8} lg={9}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: "flex",
-                    flexDirection: "column",
-                    height: 240,
-                  }}
-                >
-                  <Chart />
-                </Paper>
-              </Grid>
-              {/* Recent Deposits */}
-              <Grid item xs={12} md={4} lg={3}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: "flex",
-                    flexDirection: "column",
-                    height: 240,
-                  }}
-                >
-                  <Deposits />
-                </Paper>
-              </Grid>
-              {/* Recent Portfolios */}
+              {/* All Positions */}
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-                  <PortfolioItem portfolios={portfolios} />
+                  <PositionListItem positions={positions}/>
                 </Paper>
               </Grid>
             </Grid>
