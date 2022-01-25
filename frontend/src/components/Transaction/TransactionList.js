@@ -35,7 +35,7 @@ function Copyright(props) {
     >
       {"Copyright © "}
       <Link color="inherit" href="https://mui.com/">
-        Your Website
+        Portfolio Tracker
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -207,7 +207,7 @@ function DashboardContent() {
                     height: 240,
                   }}
                 >
-                  <Deposits />
+                  
                 </Paper>
               </Grid>
               {/* Recent Transactions */}

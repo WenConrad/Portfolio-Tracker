@@ -20,24 +20,6 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { authContext } from "../../providers/AuthProvider";
 import { Title } from "@mui/icons-material";
 
-const axios = require("axios");
-
-// async function loginUser(credentials) {
-//   return fetch("http://localhost:8080/login", {
-//     method: "POST",
-//     headers: {
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify(credentials),
-//   }).then((data) => data.json());
-// }
-
-// async function axiosTest(user) {
-//   axios.post("/users/login", user).then(function (res) {
-//     console.log(res.data);
-//   });
-// }
-
 function Copyright(props) {
   return (
     <Typography

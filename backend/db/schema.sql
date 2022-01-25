@@ -1,5 +1,5 @@
 DROP TABLE IF EXISTS users CASCADE;
-
+DROP TABLE IF EXISTS postfolios CASCADE;
 DROP TABLE IF EXISTS transactions CASCADE;
 
 CREATE TABLE users (
@@ -8,6 +8,12 @@ CREATE TABLE users (
   email VARCHAR(255) UNIQUE NOT NULL,
   password VARCHAR(255) NOT NULL,
   settings JSON
+);
+
+CREATE TABLE portfolios (
+  id SERIAL PRIMARY KEY NOT NULL,
+  name VARCHAR(255),
+  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
 );
 
 CREATE TABLE transactions (
