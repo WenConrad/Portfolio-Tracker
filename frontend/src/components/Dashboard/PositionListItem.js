@@ -49,9 +49,6 @@ export default function PositionListItem(props) {
         {/* Display transactions from props */}
         <>{displayPosition(props)}</>
       </Table>
-      <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
-        See more orders
-      </Link>
     </React.Fragment>
   );
 }

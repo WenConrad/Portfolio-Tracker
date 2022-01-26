@@ -1,5 +1,4 @@
 import * as React from "react";
-import Link from "@mui/material/Link";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -8,10 +7,6 @@ import TableRow from "@mui/material/TableRow";
 import Title from "../Dashboard/Title";
 
 import moment from "moment";
-
-function preventDefault(event) {
-  event.preventDefault();
-}
 
 export default function TransactionListItem(props) {
   
@@ -57,9 +52,6 @@ export default function TransactionListItem(props) {
         {/* Display transactions from props */}
         <>{displayTransaction(props)}</>
       </Table>
-      <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
-        See more transactions
-      </Link>
     </React.Fragment>
   );
 }

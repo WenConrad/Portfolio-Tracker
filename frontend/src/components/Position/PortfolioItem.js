@@ -1,5 +1,4 @@
 import * as React from "react";
-import Link from "@mui/material/Link";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -8,14 +7,9 @@ import TableRow from "@mui/material/TableRow";
 import Title from "../Dashboard/Title";
 import NewPortfolioForm from "./NewPortfolioForm";
 import { Button } from "@mui/material";
-import { Link as RLink } from "react-router-dom";
-
-function preventDefault(event) {
-  event.preventDefault();
-}
+import { Link } from "react-router-dom";
 
 export default function PortfolioItem(props) {
-  // const [row, setRow] = React.useState([]);
   // console.log(props)
   const displayPortfolio = (props) => {
     const { portfolios } = props;
@@ -27,9 +21,14 @@ export default function PortfolioItem(props) {
             return (
               <TableRow key={portfolio.id}>
                 <TableCell>
-                  <RLink to={"/portfolio/" + portfolio.name}>
+                  <Button 
+                  variant="contained"
+                  size="medium"
+                  LinkComponent={Link} to={"/portfolio/" + portfolio.name}
+                  color="inherit"
+                  >
                     {portfolio.name}
-                  </RLink>
+                  </Button>
                 </TableCell>
               </TableRow>
             );

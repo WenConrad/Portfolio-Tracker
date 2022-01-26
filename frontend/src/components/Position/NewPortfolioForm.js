@@ -1,4 +1,5 @@
 import { Button, FormControl, TableRow, TextField } from "@mui/material";
+import AddIcon from '@mui/icons-material/Add';
 import axios from "axios";
 import React, { useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
@@ -25,6 +26,11 @@ const NewPortfolioForm = () => {
 
   return (
     <>
+      <Button 
+      startIcon={<AddIcon/>}
+      onClick={() => setShow((prev) => !prev)}>
+        Add New Portfolio
+      </Button>
       {show && (
         <FormControl>
           <TextField
@@ -37,9 +43,6 @@ const NewPortfolioForm = () => {
           <Button onClick={handleSubmit}>Submit</Button>
         </FormControl>
       )}
-      <Button onClick={() => setShow((prev) => !prev)}>
-        Add New Portfolio
-      </Button>
     </>
   );
 };
