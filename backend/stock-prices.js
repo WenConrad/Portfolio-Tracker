@@ -44,7 +44,7 @@ const getSymbol = function (ticker) {
     params: { q: ticker },
     headers: {
       "x-rapidapi-host": "yh-finance.p.rapidapi.com",
-      "x-rapidapi-key": "17a66cc498mshf056af83ec5a537p11b44cjsn51940185e64c",
+      "x-rapidapi-key": rAPIKey,
     },
   };
 
