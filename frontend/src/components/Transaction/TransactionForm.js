@@ -1,5 +1,5 @@
 import * as React from "react";
-import { FormControl, TextField, Button, Input, MenuItem } from "@mui/material";
+import { FormControl, TextField, Button, Input, MenuItem, Stack } from "@mui/material";
 import DatePicker from "@mui/lab/DatePicker";
 import DateAdapter from "@mui/lab/AdapterMoment";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
@@ -26,25 +26,33 @@ export default function TransactionForm() {
   const [portfolioName, setPortfolioName] = React.useState(portfolios[0].id);
   const [type, setType] = React.useState("BUY");
   const [value, setValue] = React.useState(new Date("2022-1-24"));
-  console.log(portfolios);
-  const handleChange = (newValue) => {
-    setValue(moment(newValue).format("YYYY-MM-DD"));
+  const [ticker, setTicker] = React.useState("RESP");
+  const [price, setPrice] = React.useState(123);
+  const [quantity, setQuantity] = React.useState(123);
+  
+  const handlePortfolioChange = (newPortfolio) => {
+    setPortfolioName(newPortfolio.target.value);
   };
-
-  console.log(portfolioName);
 
   const handleTypeChange = (newType) => {
     setType(newType.target.value);
   };
 
-  const handlePortfolioChange = (newPortfolio) => {
-    setPortfolioName(newPortfolio.target.value);
+  const handleChange = (newValue) => {
+    setValue(newValue.target.value);
   };
 
-  let ticker = "AAPL",
-    price = 16545,
-    quantity = 213,
-    portfolio = "test";
+  const handleTickerChange = (newValue) => {
+    setTicker(newValue.target.value);
+  };
+
+  const handlePriceChange = (newValue) => {
+    setPrice(newValue.target.value);
+  };
+
+  const handleQuantityChange = (newValue) => {
+    setQuantity(newValue.target.value);
+  };
 
   let transaction = {
     date: value,
@@ -52,9 +60,10 @@ export default function TransactionForm() {
     type: type,
     price: price,
     quantity: quantity,
-    portfolio_name: portfolio,
+    portfolio_name: portfolios[portfolioName],
+    portfolio_id: portfolioName,
   };
-
+  
   const handleSubmit = (event) => {
     transaction = {
       date: value,
@@ -62,9 +71,10 @@ export default function TransactionForm() {
       type: type,
       price: price,
       quantity: quantity,
-      portfolio_name: portfolio,
+      portfolio_name: portfolios[portfolioName],
+      portfolio_id: portfolioName,
     };
-    console.log(value);
+    console.log(transaction);
     // event.preventDefault();
     addTransaction(transaction);
   };
@@ -72,6 +82,7 @@ export default function TransactionForm() {
     <React.Fragment>
       <Title>Add Transaction</Title>
       <FormControl>
+      <Stack spacing={2}>
         <LocalizationProvider dateAdapter={DateAdapter}>
           <DatePicker
             id="inputDate"
@@ -102,27 +113,21 @@ export default function TransactionForm() {
           required
           id="inputType"
           label="Ticker"
-          onChange={(e) => {
-            ticker = e.target.value;
-          }}
+          onChange={handleTickerChange}
         ></TextField>
         <TextField
           required
           id="inputType"
           label="Price"
           inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
-          onChange={(e) => {
-            price = e.target.value;
-          }}
+          onChange={handlePriceChange}
         ></TextField>
         <TextField
           required
           id="inputType"
           label="Quantity"
           inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
-          onChange={(e) => {
-            quantity = e.target.value;
-          }}
+          onChange={handleQuantityChange}
         ></TextField>
 
         <TextField
@@ -140,6 +145,7 @@ export default function TransactionForm() {
           ))}
         </TextField>
         <Button onClick={handleSubmit}>Add Transaction</Button>
+      </Stack>
       </FormControl>
     </React.Fragment>
   );
