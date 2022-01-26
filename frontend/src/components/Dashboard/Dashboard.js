@@ -60,7 +60,7 @@ function DashboardContent() {
     axios
       .get(url)
       .then(function (res) {
-        //   console.log(res.data);
+        console.log(res.data);
         const allPositions = res.data;
         //add our data to state
         getPositions(allPositions);

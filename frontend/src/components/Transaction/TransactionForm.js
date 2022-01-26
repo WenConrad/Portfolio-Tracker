@@ -1,5 +1,12 @@
 import * as React from "react";
-import { FormControl, TextField, Button, Input, MenuItem, Stack } from "@mui/material";
+import {
+  FormControl,
+  TextField,
+  Button,
+  Input,
+  MenuItem,
+  Stack,
+} from "@mui/material";
 import DatePicker from "@mui/lab/DatePicker";
 import DateAdapter from "@mui/lab/AdapterMoment";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
@@ -29,10 +36,11 @@ export default function TransactionForm() {
   );
   const [type, setType] = React.useState("BUY");
   const [value, setValue] = React.useState(new Date("2022-1-24"));
-  const [ticker, setTicker] = React.useState("RESP");
+  const [ticker, setTicker] = React.useState("");
   const [price, setPrice] = React.useState(123);
   const [quantity, setQuantity] = React.useState(123);
-  
+  const [tickerQuery, setTickerQuery] = React.useState(["tsla", "aapl", "gme"]);
+
   const handlePortfolioChange = (newPortfolio) => {
     setPortfolioName(newPortfolio.target.value);
   };
@@ -66,7 +74,7 @@ export default function TransactionForm() {
     portfolio_name: portfolios[portfolioName],
     portfolio_id: portfolioName,
   };
-  
+
   const handleSubmit = (event) => {
     transaction = {
       date: value,
@@ -81,6 +89,21 @@ export default function TransactionForm() {
     // event.preventDefault();
     addTransaction(transaction);
   };
+
+  // React.useEffect(() => {
+  //   if (ticker.length > 2) {
+  //     axios.post("/stocks/search", { ticker: ticker }).then((res) => {
+  //       console.log(res.data);
+  //       setTickerQuery(
+  //         res.data.map((item) => {
+  //           <MenuItem key={item} value={item}>
+  //             {item}
+  //           </MenuItem>;
+  //         })
+  //       );
+  //     });
+  //   }
+  // }, [ticker]);
 
   if (!portfolios[0]) {
     return (
@@ -97,70 +120,76 @@ export default function TransactionForm() {
     <React.Fragment>
       <Title>Add Transaction</Title>
       <FormControl>
-      <Stack spacing={2}>
-        <LocalizationProvider dateAdapter={DateAdapter}>
-          <DatePicker
-            id="inputDate"
-            label="Date&Time picker"
-            value={value}
-            onChange={handleChange}
-            renderInput={(params) => <TextField {...params} />}
-          />
-        </LocalizationProvider>
-
-        <TextField
-          required
-          id="inputType"
-          select={portfolioName}
-          label="Portfolio Name"
-          value={portfolioName}
-          onChange={handlePortfolioChange}
-        >
-          {portfolios.map((port) => {
-            return (
-              <MenuItem key={port.id} value={port.id}>
-                {port.name}
+        <Stack spacing={2}>
+          <LocalizationProvider dateAdapter={DateAdapter}>
+            <DatePicker
+              id="inputDate"
+              label="Date&Time picker"
+              value={value}
+              onChange={handleChange}
+              renderInput={(params) => <TextField {...params} />}
+            />
+          </LocalizationProvider>
+          <TextField
+            required
+            id="inputType"
+            select={portfolioName}
+            label="Portfolio Name"
+            value={portfolioName}
+            onChange={handlePortfolioChange}
+          >
+            {portfolios.map((port) => {
+              return (
+                <MenuItem key={port.id} value={port.id}>
+                  {port.name}
+                </MenuItem>
+              );
+            })}
+          </TextField>
+          <TextField
+            required
+            id="inputType"
+            select={ticker}
+            label="Ticker"
+            value={ticker}
+            onChange={handleTickerChange}
+          >
+            {tickerQuery.map((port) => (
+              <MenuItem key={port} value={port}>
+                {port}
               </MenuItem>
-            );
-          })}
-        </TextField>
-        <TextField
-          required
-          id="inputType"
-          label="Ticker"
-          onChange={handleTickerChange}
-        ></TextField>
-        <TextField
-          required
-          id="inputType"
-          label="Price"
-          inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
-          onChange={handlePriceChange}
-        ></TextField>
-        <TextField
-          required
-          id="inputType"
-          label="Quantity"
-          inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
-          onChange={handleQuantityChange}
-        ></TextField>
-
-        <TextField
-          required
-          id="inputType"
-          select={type}
-          label="Type"
-          value={type}
-          onChange={handleTypeChange}
-        >
-          {types.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
-        <Button onClick={handleSubmit}>Add Transaction</Button>
-      </Stack>
+            ))}
+          </TextField>
+          <TextField
+            required
+            id="inputType"
+            label="Price"
+            inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
+            onChange={handlePriceChange}
+          ></TextField>
+          <TextField
+            required
+            id="inputType"
+            label="Quantity"
+            inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
+            onChange={handleQuantityChange}
+          ></TextField>
+          <TextField
+            required
+            id="inputType"
+            select={type}
+            label="Type"
+            value={type}
+            onChange={handleTypeChange}
+          >
+            {types.map((option) => (
+              <MenuItem key={option.value} value={option.value}>
+                {option.label}
+              </MenuItem>
+            ))}
+          </TextField>
+          <Button onClick={handleSubmit}>Add Transaction</Button>
+        </Stack>
       </FormControl>
     </React.Fragment>
   );

@@ -53,14 +53,7 @@ const getSymbol = function (ticker) {
     .then((res) => {
       return res.data.quotes
         .filter((stock) => stock.quoteType !== "OPTION")
-        .map((stock) => {
-          return {
-            symbol: stock.symbol,
-            shortName: stock.shortname,
-            quoteType: stock.quoteType,
-            exchDisp: stock.exchDisp,
-          };
-        });
+        .map((stock) => stock.symbol);
     })
     .catch((error) => {
       console.error(error);

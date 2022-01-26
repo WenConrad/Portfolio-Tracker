@@ -26,6 +26,7 @@ export default function PositionListItem(props) {
                 <TableCell>{position.ticker}</TableCell>
                 <TableCell>{position.book_cost}</TableCell>
                 <TableCell>{position.quantity}</TableCell>
+                <TableCell>{position.market_price}</TableCell>
               </TableRow>
             );
           })}
@@ -44,6 +45,7 @@ export default function PositionListItem(props) {
             <TableCell>Ticker</TableCell>
             <TableCell>Book Cost</TableCell>
             <TableCell>Quantity</TableCell>
+            <TableCell>Market Price</TableCell>
           </TableRow>
         </TableHead>
         {/* Display transactions from props */}
