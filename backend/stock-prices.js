@@ -14,6 +14,7 @@ const axios = require("axios");
 // }).catch(function (error) {
 //   console.error(error);
 // });
+const rAPIKey = process.env.RA_API_KEY;
 
 const getStockPrice = function (tickers) {
   const options = {
@@ -22,7 +23,7 @@ const getStockPrice = function (tickers) {
     params: { region: "US", symbols: tickers.toString() },
     headers: {
       "x-rapidapi-host": "yh-finance.p.rapidapi.com",
-      "x-rapidapi-key": "17a66cc498mshf056af83ec5a537p11b44cjsn51940185e64c",
+      "x-rapidapi-key": rAPIKey,
     },
   };
   return axios
