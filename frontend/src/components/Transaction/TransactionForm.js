@@ -10,6 +10,7 @@ import {
 import DatePicker from "@mui/lab/DatePicker";
 import DateAdapter from "@mui/lab/AdapterMoment";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
+import NumberFormat from "react-number-format";
 import Title from "../Dashboard/Title";
 
 import axios from "axios";
@@ -29,10 +30,60 @@ const types = [
   { value: "BUY", label: "BUY" },
 ];
 
+const NumberFormatPrice = React.forwardRef(function NumberFormatPrice(
+  props,
+  ref
+) {
+  const { onChange, ...other } = props;
+
+  return (
+    <NumberFormat
+      {...other}
+      getInputRef={ref}
+      onValueChange={(values) => {
+        onChange({
+          target: {
+            name: props.name,
+            value: values.value,
+          },
+        });
+      }}
+      thousandSeparator
+      isNumericString
+      prefix="$"
+    />
+  );
+});
+
+const NumberFormatQuantity = React.forwardRef(function NumberFormatQuantity(
+  props,
+  ref
+) {
+  const { onChange, ...other } = props;
+
+  return (
+    <NumberFormat
+      {...other}
+      getInputRef={ref}
+      onValueChange={(values) => {
+        onChange({
+          target: {
+            name: props.name,
+            value: values.value,
+          },
+        });
+      }}
+      isNumericString
+    />
+  );
+});
+
 export default function TransactionForm() {
   // console.log(props)
   const { portfolios } = React.useContext(portfoliosContext);
-  const [portfolioName, setPortfolioName] = React.useState(portfolios[0].id);
+  const [portfolioName, setPortfolioName] = React.useState(
+    portfolios[0] && portfolios[0].id
+  );
   const [type, setType] = React.useState("BUY");
   const [value, setValue] = React.useState(new Date("2022-1-24"));
   const [ticker, setTicker] = React.useState("");
@@ -81,8 +132,6 @@ export default function TransactionForm() {
       quantity: quantity,
       portfolio_id: portfolioName,
     };
-    console.log(transaction);
-    console.log(ticker);
     // event.preventDefault();
     addTransaction(transaction);
   };
@@ -126,27 +175,33 @@ export default function TransactionForm() {
               </MenuItem>
             ))}
           </TextField>
-
           <TickerSearch
             value={ticker}
             ticker={ticker}
             handleTickerChange={handleTickerChange}
           ></TickerSearch>
-
           <TextField
             required
-            id="inputType"
             label="Price"
-            inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
+            value={price.NumberFormat}
             onChange={handlePriceChange}
-          ></TextField>
+            name="numberformat"
+            id="formatted-numberformat-input"
+            InputProps={{
+              inputComponent: NumberFormatPrice,
+            }}
+          />
           <TextField
             required
-            id="inputType"
             label="Quantity"
-            inputProps={{ inputMode: "numeric", pattern: "[0-9]*" }}
+            value={quantity.NumberFormat}
             onChange={handleQuantityChange}
-          ></TextField>
+            name="numberformat"
+            id="formatted-numberformat-input"
+            InputProps={{
+              inputComponent: NumberFormatQuantity,
+            }}
+          />
           <TextField
             required
             id="inputType"

@@ -37,7 +37,6 @@ const mdTheme = createTheme();
 function DashboardContent() {
   const { logout } = React.useContext(authContext);
   const { portfolios } = React.useContext(portfoliosContext);
-  console.log(portfolios);
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
@@ -48,7 +47,6 @@ function DashboardContent() {
 
   const [positions, getPositions] = React.useState("");
   React.useEffect(() => {
-    console.log(params.name);
     let url = params.name
       ? `/stocks/portfolio/${params.name}`
       : "/stocks/positions";
@@ -60,7 +58,6 @@ function DashboardContent() {
     axios
       .get(url)
       .then(function (res) {
-        console.log(res.data);
         const allPositions = res.data;
         //add our data to state
         getPositions(allPositions);

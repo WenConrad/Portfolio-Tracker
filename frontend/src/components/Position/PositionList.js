@@ -30,7 +30,6 @@ import { authContext } from "../../providers/AuthProvider";
 import PortfolioItem from "./PortfolioItem";
 import PositionListItem from "../Dashboard/PositionListItem";
 
-
 import axios from "axios";
 
 const mdTheme = createTheme();
@@ -44,36 +43,39 @@ function DashboardContent() {
   };
 
   let params = useParams();
-   
-  const [portfolios, getPortfolios] = React.useState('');
-  const [positions, getPositions] = React.useState('');
-  React.useEffect( () => {
-    console.log(params.name);
-    let url = params.name ? `/stocks/portfolio/${params.name}` : '/stocks/portfolio';
+
+  const [portfolios, getPortfolios] = React.useState("");
+  const [positions, getPositions] = React.useState("");
+  React.useEffect(() => {
+    let url = params.name
+      ? `/stocks/portfolio/${params.name}`
+      : "/stocks/portfolio";
     params.name ? getAllPositions(url) : getAllPortfolios(url);
-  }, [] );
+  }, []);
 
   const getAllPortfolios = (url) => {
-    axios.get(url)
-    .then(function (res) {
-    //   console.log(res.data);
-      const allTransactions = res.data;
-      //add our data to state
-      getPortfolios(allTransactions);
-    })
-    .catch(error => console.error(`Error: ${error}`));
-  }
+    axios
+      .get(url)
+      .then(function (res) {
+        //   console.log(res.data);
+        const allTransactions = res.data;
+        //add our data to state
+        getPortfolios(allTransactions);
+      })
+      .catch((error) => console.error(`Error: ${error}`));
+  };
 
   const getAllPositions = (url) => {
-    axios.get(url)
-    .then(function (res) {
-    //   console.log(res.data);
-      const allPositions = res.data;
-      //add our data to state
-      getPositions(allPositions);
-    })
-    .catch(error => console.error(`Error: ${error}`));
-  }
+    axios
+      .get(url)
+      .then(function (res) {
+        //   console.log(res.data);
+        const allPositions = res.data;
+        //add our data to state
+        getPositions(allPositions);
+      })
+      .catch((error) => console.error(`Error: ${error}`));
+  };
 
   const logoutRedirect = function () {
     logout().then((res) => {
@@ -160,11 +162,11 @@ function DashboardContent() {
                   <PortfolioItem portfolios={portfolios} />
                 </Paper>
               </Grid>
-            
+
               {/* positions */}
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-                <PositionListItem positions={positions}/>
+                  <PositionListItem positions={positions} />
                 </Paper>
               </Grid>
             </Grid>

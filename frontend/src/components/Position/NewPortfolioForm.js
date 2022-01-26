@@ -1,8 +1,8 @@
 import { Button, FormControl, TableRow, TextField } from "@mui/material";
-import AddIcon from '@mui/icons-material/Add';
+import AddIcon from "@mui/icons-material/Add";
 import axios from "axios";
 import React, { useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const NewPortfolioForm = () => {
   const [show, setShow] = useState(false);
@@ -14,21 +14,16 @@ const NewPortfolioForm = () => {
   };
 
   const handleSubmit = (event) => {
-    console.log(newPortfolioName);
-    // event.preventDefault();
     axios
       .post("/stocks/portfolio/new", { portName: newPortfolioName })
       .then((res) => {
-        console.log(res.rows);
-        navigate("/positions");
+        window.location.reload(false);
       });
   };
 
   return (
     <>
-      <Button 
-      startIcon={<AddIcon/>}
-      onClick={() => setShow((prev) => !prev)}>
+      <Button startIcon={<AddIcon />} onClick={() => setShow((prev) => !prev)}>
         Add New Portfolio
       </Button>
       {show && (

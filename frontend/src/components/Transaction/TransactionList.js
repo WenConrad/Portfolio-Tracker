@@ -37,7 +37,6 @@ function DashboardContent() {
   const { logout } = React.useContext(authContext);
   const navigate = useNavigate();
   const { portfolios } = useContext(portfoliosContext);
-  console.log(portfolios);
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
