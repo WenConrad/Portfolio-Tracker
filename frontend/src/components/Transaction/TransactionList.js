@@ -19,19 +19,23 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 // template components
-import { mainListItems } from "../Template/listItems";
+import { mainListItems, LogOutItem } from "../Template/listItems";
 import Copyright from "../Template/Template";
 import { AppBar, Drawer } from "../Template/Template";
+import { authContext } from "../../providers/AuthProvider";
 
 import TransactionListItem from "./TransactionListItem";
 import TransactionForm from "./TransactionForm";
 import { portfoliosContext } from "../../providers/PortfolioProvider";
 import { useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const mdTheme = createTheme();
 
 function DashboardContent() {
+  const { logout } = React.useContext(authContext);
+  const navigate = useNavigate();
   const { portfolios } = useContext(portfoliosContext);
   console.log(portfolios);
   const [open, setOpen] = React.useState(true);
@@ -54,6 +58,12 @@ function DashboardContent() {
         setTransactions(allTransactions);
       })
       .catch((error) => console.error(`Error: ${error}`));
+  };
+
+  const logoutRedirect = function () {
+    logout().then((res) => {
+      navigate("/login");
+    });
   };
 
   return (
@@ -110,6 +120,9 @@ function DashboardContent() {
           <Divider />
           <List>{mainListItems}</List>
           <Divider />
+          <List>
+            <LogOutItem signout={logoutRedirect} />
+          </List>
         </Drawer>
         <Box
           component="main"
