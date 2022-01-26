@@ -77,6 +77,8 @@ const getStockPositions = function (user_id) {
 exports.getStockPositions = getStockPositions;
 
 const addTransaction = async function (transaction) {
+  console.log("transaction");
+  console.log(transaction);
   if (transaction.type === "BUY") {
     let positionsQuery = `INSERT INTO positions
       (date, ticker, book_cost, quantity, portfolio_id)
@@ -98,7 +100,7 @@ const addTransaction = async function (transaction) {
     let myQuery = `SELECT * FROM positions
       WHERE ticker = $1 AND portfolio_id = $2
       ORDER BY date ASC;`;
-    let params = [transaction.ticker, portfolio_id];
+    let params = [transaction.ticker, transaction.portfolio_id];
     const checkPositions = await pool.query(myQuery, params);
     let stockToBeSold = transaction.quantity;
     let i = 0;
