@@ -42,6 +42,16 @@ router.get("/portfolio/", function (req, res, next) {
   });
 });
 
+router.post("/portfolio/new", function (req, res, next) {
+  console.log(req.body.portName);
+  console.log(req.session);
+  let user = req.session.userId;
+  database.addPortfolio(req.body.portName, user).then((result) => {
+    console.log(result);
+    res.json(result);
+  });
+});
+
 router.get("/portfolio/:name", function (req, res, next) {
   console.log(req.params);
   let user = req.session.userId;

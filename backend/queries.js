@@ -163,6 +163,18 @@ const getPortfolios = function (user_id) {
 };
 exports.getPortfolios = getPortfolios;
 
+const addPortfolio = function (portfolio_name, user_id) {
+  let myQuery = `INSERT INTO portfolios (name, user_id) VALUES ($1, $2) RETURNING *;`;
+  let params = [portfolio_name, user_id];
+  return pool
+    .query(myQuery, params)
+    .then((result) => result.rows)
+    .catch((err) => {
+      console.log(err.message);
+    });
+};
+exports.addPortfolio = addPortfolio;
+
 const getPositionsByPortfolio = function (user_id, portfolio_name) {
   let myQuery = `SELECT
     positions.ticker,
