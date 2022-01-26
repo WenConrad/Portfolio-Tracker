@@ -21,7 +21,7 @@ router.post("/register", (req, res) => {
         return;
       }
       req.session.userId = user.id;
-      res.send("🤗");
+      res.send({ user: { name: user.name, email: user.email, id: user.id } });
     })
     .catch((e) => res.send(e));
 });

@@ -6,6 +6,7 @@ import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Title from "../Dashboard/Title";
+import NewPortfolioForm from "./NewPortfolioForm";
 import { Button } from "@mui/material";
 import { Link as RLink } from "react-router-dom";
 
@@ -35,6 +36,14 @@ export default function PortfolioItem(props) {
           })}
         </TableBody>
       );
+    } else {
+      return (
+        <TableBody>
+          <TableRow>
+            <TableCell>You don't have any portfolios yet!</TableCell>
+          </TableRow>
+        </TableBody>
+      );
     }
   };
 
@@ -45,16 +54,12 @@ export default function PortfolioItem(props) {
         <TableHead>
           <TableRow>
             <TableCell>Portfolio</TableCell>
-
-            <TableCell align="right">Type</TableCell>
           </TableRow>
         </TableHead>
         {/* Display transactions from props */}
         <>{displayPortfolio(props)}</>
       </Table>
-      <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
-        See more transactions
-      </Link>
+      <NewPortfolioForm />
     </React.Fragment>
   );
 }
