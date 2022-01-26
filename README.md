@@ -34,3 +34,11 @@ Open [http://localhost:3003](http://localhost:3003) to view it in your browser.
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
+## Build your database with psql
+
+In the the db directory, you can run:
+
+### `\i schema.sql`
+### `\i seeds.sql`
+
+Creates tables and seed data

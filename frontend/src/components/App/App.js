@@ -13,6 +13,7 @@ import TransactionList from "../Transaction/TransactionList";
 import { authContext } from "../../providers/AuthProvider";
 import { render } from "react-dom";
 import { portfoliosContext } from "../../providers/PortfolioProvider";
+import SignInSide from "../Login/LoginSide";
 
 function App() {
   const { auth, user, login, checkAuth, logout } = useContext(authContext);
@@ -39,8 +40,10 @@ function App() {
   return (
     <div className="wrapper">
       <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/login" element={<Login />} />
+        <Route path="/" element={<SignInSide />} />
+        {/* <Route path="/" element={<Login />} /> */}
+        <Route path="/login" element={<SignInSide />} />
+        {/* <Route path="/login" element={<Login />} /> */}
         <Route path="/signup" element={<SignUp />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/portfolio/:name" element={<Dashboard />} />
