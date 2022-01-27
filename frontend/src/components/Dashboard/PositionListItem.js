@@ -69,6 +69,18 @@ const columns = [
     flex: 1,
   },
   {
+    field: "book_value",
+    headerName: "Book Value",
+    valueFormatter: (params) => {
+      const valueFormatted = Number(params.value)
+        .toFixed(2)
+        .replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,")
+        .toLocaleString();
+      return `$ ${valueFormatted}`;
+    },
+    flex: 1,
+  },
+  {
     field: "quantity",
     headerName: "Quantity",
     type: "number",
@@ -80,6 +92,25 @@ const columns = [
     valueFormatter: (params) => {
       const valueFormatted = params.value && params.value.toLocaleString();
       return `$ ${valueFormatted}`;
+    },
+    flex: 1,
+  },
+  {
+    field: "market_value",
+    headerName: "Market Value",
+    valueFormatter: (params) => {
+      const valueFormatted = params.value && params.value.toLocaleString();
+      return `$ ${valueFormatted}`;
+    },
+    flex: 1,
+  },
+  {
+    field: "gain/loss",
+    headerName: "Unrealized %",
+    type: "number",
+    valueFormatter: (params) => {
+      const valueFormatted = Number(params.value * 100).toLocaleString();
+      return `${valueFormatted} %`;
     },
     flex: 1,
   },

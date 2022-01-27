@@ -18,7 +18,7 @@ import Link from "@mui/material/Link";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 // template components
 import { mainListItems, LogOutItem } from "../Template/listItems";
 import Copyright from "../Template/Template";
@@ -27,23 +27,17 @@ import { authContext } from "../../providers/AuthProvider";
 
 // import TransactionListItem from "./TransactionListItem";
 import TransactionForm from "./TransactionForm";
-import { portfoliosContext } from "../../providers/PortfolioProvider";
-import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 import TransactionDataTable from "./TransactionListItem";
 
-
-
 function DashboardContent() {
   const { logout, user } = React.useContext(authContext);
   const navigate = useNavigate();
-  const { portfolios, transactions } = useContext(portfoliosContext);
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
   };
-  
 
   const logoutRedirect = function () {
     logout().then((res) => {
@@ -52,105 +46,102 @@ function DashboardContent() {
   };
 
   return (
-    
-      <Box sx={{ display: "flex" }}>
-        <CssBaseline />
-        <AppBar position="absolute" open={open}>
-          <Toolbar
-            sx={{
-              pr: "24px", // keep right padding when drawer closed
-            }}
-          >
-            <IconButton
-              edge="start"
-              color="inherit"
-              aria-label="open drawer"
-              onClick={toggleDrawer}
-              sx={{
-                marginRight: "36px",
-                ...(open && { display: "none" }),
-              }}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography
-              component="h1"
-              variant="h6"
-              color="inherit"
-              noWrap
-              sx={{ flexGrow: 1 }}
-            >
-              Transactions
-            </Typography>
-            <IconButton color="inherit">
-              <Badge color="secondary">
-                <AccountCircleIcon />
-              </Badge>
-              
-            </IconButton>
-          </Toolbar>
-        </AppBar>
-
-        <Drawer variant="permanent" open={open}>
-          <Toolbar
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "flex-end",
-              px: [1],
-            }}
-          >
-            <IconButton onClick={toggleDrawer}>
-              <ChevronLeftIcon />
-            </IconButton>
-          </Toolbar>
-          <Divider />
-          <List>{mainListItems}</List>
-          <Divider />
-          <List>
-            <LogOutItem signout={logoutRedirect} />
-          </List>
-        </Drawer>
-        <Box
-          component="main"
+    <Box sx={{ display: "flex" }}>
+      <CssBaseline />
+      <AppBar position="absolute" open={open}>
+        <Toolbar
           sx={{
-            backgroundColor: (theme) =>
-              theme.palette.mode === "light"
-                ? theme.palette.grey[100]
-                : theme.palette.grey[900],
-            flexGrow: 1,
-            height: "100vh",
-            overflow: "auto",
+            pr: "24px", // keep right padding when drawer closed
           }}
         >
-          <Toolbar />
-          <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-            <Grid container spacing={3}>
-              {/* Add Transaction */}
-              <Grid item xs={12}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: "flex",
-                    flexDirection: "column",
-                  }}
-                >
-                  <TransactionForm />
-                </Paper>
-              </Grid>
-              {/* Recent Transactions */}
-              <Grid item xs={12}>
-                <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-                  {/* <TransactionListItem transactions={transactions} /> */}
-                  <TransactionDataTable transactions={transactions} />
-                </Paper>
-              </Grid>
+          <IconButton
+            edge="start"
+            color="inherit"
+            aria-label="open drawer"
+            onClick={toggleDrawer}
+            sx={{
+              marginRight: "36px",
+              ...(open && { display: "none" }),
+            }}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography
+            component="h1"
+            variant="h6"
+            color="inherit"
+            noWrap
+            sx={{ flexGrow: 1 }}
+          >
+            Transactions
+          </Typography>
+          <IconButton color="inherit">
+            <Badge color="secondary">
+              <AccountCircleIcon />
+            </Badge>
+          </IconButton>
+        </Toolbar>
+      </AppBar>
+
+      <Drawer variant="permanent" open={open}>
+        <Toolbar
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "flex-end",
+            px: [1],
+          }}
+        >
+          <IconButton onClick={toggleDrawer}>
+            <ChevronLeftIcon />
+          </IconButton>
+        </Toolbar>
+        <Divider />
+        <List>{mainListItems}</List>
+        <Divider />
+        <List>
+          <LogOutItem signout={logoutRedirect} />
+        </List>
+      </Drawer>
+      <Box
+        component="main"
+        sx={{
+          backgroundColor: (theme) =>
+            theme.palette.mode === "light"
+              ? theme.palette.grey[100]
+              : theme.palette.grey[900],
+          flexGrow: 1,
+          height: "100vh",
+          overflow: "auto",
+        }}
+      >
+        <Toolbar />
+        <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+          <Grid container spacing={3}>
+            {/* Add Transaction */}
+            <Grid item xs={12}>
+              <Paper
+                sx={{
+                  p: 2,
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+              >
+                <TransactionForm />
+              </Paper>
             </Grid>
-            <Copyright sx={{ pt: 4 }} />
-          </Container>
-        </Box>
+            {/* Recent Transactions */}
+            <Grid item xs={12}>
+              <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
+                {/* <TransactionListItem transactions={transactions} /> */}
+                <TransactionDataTable />
+              </Paper>
+            </Grid>
+          </Grid>
+          <Copyright sx={{ pt: 4 }} />
+        </Container>
       </Box>
-   
+    </Box>
   );
 }
 
