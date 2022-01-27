@@ -31,21 +31,10 @@ import { portfoliosContext } from "../../providers/PortfolioProvider";
 
 import { useNavigate, useParams } from "react-router-dom";
 
-<<<<<<< HEAD
-import axios from "axios";
-
 
 function DashboardContent() {
   const { logout, user } = React.useContext(authContext);
-  const { portfolios } = React.useContext(portfoliosContext);
-  
-=======
-const mdTheme = createTheme();
-
-function DashboardContent() {
-  const { logout } = React.useContext(authContext);
   const { portfolios, positions } = React.useContext(portfoliosContext);
->>>>>>> master
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
@@ -104,7 +93,7 @@ function DashboardContent() {
               <Badge color="secondary">
                 <AccountCircleIcon />
               </Badge>
-              {user.name}
+              
             </IconButton>
           </Toolbar>
         </AppBar>

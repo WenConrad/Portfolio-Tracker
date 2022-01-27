@@ -86,7 +86,7 @@ function DashboardContent() {
               <Badge color="secondary">
                 <AccountCircleIcon />
               </Badge>
-              {user.name}
+              
             </IconButton>
           </Toolbar>
         </AppBar>

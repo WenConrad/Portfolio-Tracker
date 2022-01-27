@@ -33,7 +33,7 @@ import PortfolioItem from "./PortfolioItem";
 import PortfolioDataTable from "../Dashboard/PositionListItem";
 
 function DashboardContent() {
-  const { logout } = React.useContext(authContext);
+  const { logout, user } = React.useContext(authContext);
   const { portfolios, positions } = React.useContext(portfoliosContext);
   const [open, setOpen] = React.useState(true);
   const navigate = useNavigate();
@@ -83,7 +83,7 @@ function DashboardContent() {
               <Badge color="secondary">
                 <AccountCircleIcon />
               </Badge>
-              {user.name}
+              
             </IconButton>
           </Toolbar>
         </AppBar>
