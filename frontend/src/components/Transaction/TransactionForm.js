@@ -80,7 +80,8 @@ const NumberFormatQuantity = React.forwardRef(function NumberFormatQuantity(
 
 export default function TransactionForm() {
   // console.log(props)
-  const { portfolios } = React.useContext(portfoliosContext);
+  const { portfolios, transactions, setTransactions } =
+    React.useContext(portfoliosContext);
   const [portfolioName, setPortfolioName] = React.useState(
     portfolios[0] && portfolios[0].id
   );
@@ -121,6 +122,9 @@ export default function TransactionForm() {
     price: price,
     quantity: quantity,
     portfolio_id: portfolioName,
+    portfolio_name: !!portfolios[0]
+      ? portfolios.filter((port) => port.id === portfolioName)[0].name
+      : [],
   };
 
   const handleSubmit = (event) => {
@@ -131,9 +135,14 @@ export default function TransactionForm() {
       price: price,
       quantity: quantity,
       portfolio_id: portfolioName,
+      portfolio_name: !!portfolios[0]
+        ? portfolios.filter((port) => port.id === portfolioName)[0].name
+        : [],
     };
     // event.preventDefault();
     addTransaction(transaction);
+    console.log(portfolios.filter((port) => port.id === portfolioName)[0].name);
+    setTransactions([...transactions, transaction]);
   };
 
   if (!portfolios[0]) {

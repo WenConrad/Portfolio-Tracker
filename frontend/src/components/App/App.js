@@ -17,7 +17,8 @@ import SignInSide from "../Login/LoginSide";
 
 function App() {
   const { auth, user, login, checkAuth, logout } = useContext(authContext);
-  const { getPortfolios } = useContext(portfoliosContext);
+  const { getPortfolios, getPositions, getTransactions } =
+    useContext(portfoliosContext);
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
@@ -35,6 +36,8 @@ function App() {
 
   useEffect(() => {
     getPortfolios();
+    getPositions();
+    getTransactions();
   }, [auth]);
 
   return (

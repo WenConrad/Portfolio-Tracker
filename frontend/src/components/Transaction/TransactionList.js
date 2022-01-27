@@ -36,28 +36,28 @@ const mdTheme = createTheme();
 function DashboardContent() {
   const { logout } = React.useContext(authContext);
   const navigate = useNavigate();
-  const { portfolios } = useContext(portfoliosContext);
+  const { portfolios, transactions } = useContext(portfoliosContext);
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
   };
 
-  const [transactions, setTransactions] = React.useState("");
-  React.useEffect(() => {
-    getAllTransactions();
-  }, []);
+  // const [transactions, setTransactions] = React.useState("");
+  // React.useEffect(() => {
+  //   getAllTransactions();
+  // }, []);
 
-  const getAllTransactions = () => {
-    axios
-      .get("/stocks/transactions")
-      .then(function (res) {
-        //   console.log(res.data);
-        const allTransactions = res.data;
-        //add our data to state
-        setTransactions(allTransactions);
-      })
-      .catch((error) => console.error(`Error: ${error}`));
-  };
+  // const getAllTransactions = () => {
+  //   axios
+  //     .get("/stocks/transactions")
+  //     .then(function (res) {
+  //       //   console.log(res.data);
+  //       const allTransactions = res.data;
+  //       //add our data to state
+  //       setTransactions(allTransactions);
+  //     })
+  //     .catch((error) => console.error(`Error: ${error}`));
+  // };
 
   const logoutRedirect = function () {
     logout().then((res) => {
