@@ -32,10 +32,13 @@ router.get("/positions", function (req, res, next) {
     const tickersList = result.map((stock) => stock.ticker);
     // query for market price of each ticker
     stockAPI.getStockPrice(tickersList).then((prices) => {
-      for (let price in prices) {
-        result[price].market_price = prices[price].price;
-      }
-      res.json(result);
+      return result.map((stock) => {
+        return { ...stock, market_price: prices[stock.ticker] };
+      });
+      // for (let price in prices) {
+      //   result[price].market_price = prices[price].price;
+      // }
+      // res.json(result);
     });
   });
 });

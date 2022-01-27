@@ -5,7 +5,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 // Components
 import "./App.css";
 import Dashboard from "../Dashboard/Dashboard";
-import Login from "../Login/Login";
+// import Login from "../Login/Login";
 import SignUp from "../SignUp/SignUp";
 import Preferences from "../Preferences/Preferences";
 import PositionList from "../Position/PositionList";
@@ -19,9 +19,14 @@ import { portfoliosContext } from "../../providers/PortfolioProvider";
 import SignInSide from "../Login/LoginSide";
 
 function App() {
-  const { auth, user, login, checkAuth, logout } = useContext(authContext);
-  const { getPortfolios, getPositions, transactions, getTransactions } =
-    useContext(portfoliosContext);
+  const { auth, checkAuth } = useContext(authContext);
+  const {
+    getPortfolios,
+    positions,
+    getPositions,
+    transactions,
+    getTransactions,
+  } = useContext(portfoliosContext);
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
@@ -44,11 +49,12 @@ function App() {
   useEffect(() => {
     getPortfolios();
     getTransactions();
+    getPositions();
   }, [auth]);
 
   useEffect(() => {
     getPositions();
-  }, [auth, transactions]);
+  }, [transactions]);
 
   return (
     <ThemeProvider theme={appliedTheme}>

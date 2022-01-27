@@ -14,9 +14,12 @@ const getStockPrice = function (tickers) {
   return axios
     .request(options)
     .then((res) => {
-      return res.data.quoteResponse.result.map((stock) => {
-        return { symbol: stock.symbol, price: stock.regularMarketPrice };
-      });
+      const pricesList = res.data.quoteResponse.result;
+      const stocksPrices = {};
+      for (let price of pricesList) {
+        stocksPrices[price.symbol] = price.regularMarketPrice;
+      }
+      return stocksPrices;
     })
     .catch((error) => console.error(error));
 };

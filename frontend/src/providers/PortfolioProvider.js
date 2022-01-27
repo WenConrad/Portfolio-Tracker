@@ -9,31 +9,19 @@ const PortfolioProvider = function (props) {
   const [positions, setPositions] = useState([]);
   const [transactions, setTransactions] = useState([]);
 
-  const getPortfolios = () => {
-    return axios
-      .get("/stocks/portfolio")
-      .then((res) => {
-        setPortfolios(res.data);
-      })
-      .catch((error) => console.error(`Error: ${error}`));
+  const getPortfolios = async () => {
+    const { data } = await axios.get("/stocks/portfolio");
+    setPortfolios(data);
   };
 
-  const getPositions = () => {
-    return axios
-      .get("/stocks/positions")
-      .then((res) => {
-        setPositions(res.data);
-      })
-      .catch((error) => console.error(`Error: ${error}`));
+  const getPositions = async () => {
+    const { data } = await axios.get("/stocks/positions");
+    setPositions(data);
   };
 
-  const getTransactions = () => {
-    return axios
-      .get("/stocks/transactions")
-      .then((res) => {
-        setTransactions(res.data);
-      })
-      .catch((error) => console.error(`Error: ${error}`));
+  const getTransactions = async () => {
+    const { data } = await axios.get("/stocks/transactions");
+    setTransactions(data);
   };
 
   const providerData = {
