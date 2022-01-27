@@ -11,11 +11,10 @@ import Preferences from "../Preferences/Preferences";
 import PositionList from "../Position/PositionList";
 import TransactionList from "../Transaction/TransactionList";
 import { lightTheme, darkTheme } from "../Template/theme";
-import Brightness4Icon from '@mui/icons-material/Brightness4';
-import Brightness7Icon from '@mui/icons-material/Brightness7';
+import Brightness4Icon from "@mui/icons-material/Brightness4";
+import Brightness7Icon from "@mui/icons-material/Brightness7";
 // authProvider
 import { authContext } from "../../providers/AuthProvider";
-import { render } from "react-dom";
 import { portfoliosContext } from "../../providers/PortfolioProvider";
 import SignInSide from "../Login/LoginSide";
 
@@ -43,9 +42,10 @@ function App() {
     getTransactions();
   }, [auth]);
 
-  const [theme, setTheme] = React.useState(true)
-  const icon = !theme ? <Brightness7Icon /> : <Brightness4Icon /> // Icons imported from `@material-ui/icons`
-  const appliedTheme = createTheme(theme ? darkTheme : lightTheme)
+  const [theme, setTheme] = React.useState(true);
+  const icon = !theme ? <Brightness7Icon /> : <Brightness4Icon />; // Icons imported from `@material-ui/icons`
+  const appliedTheme = createTheme(theme ? darkTheme : lightTheme);
+
   useEffect(() => {
     getPositions();
   }, [auth, transactions]);

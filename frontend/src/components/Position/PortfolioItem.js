@@ -8,12 +8,13 @@ import Title from "../Dashboard/Title";
 import NewPortfolioForm from "./NewPortfolioForm";
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
-import FolderSpecialIcon from '@mui/icons-material/FolderSpecial';
+import FolderSpecialIcon from "@mui/icons-material/FolderSpecial";
+import { portfoliosContext } from "../../providers/PortfolioProvider";
 
 export default function PortfolioItem(props) {
+  const { portfolios } = React.useContext(portfoliosContext);
   // console.log(props)
   const displayPortfolio = (props) => {
-    const { portfolios } = props;
     if (portfolios && portfolios.length > 0) {
       return (
         <TableBody>
@@ -22,12 +23,13 @@ export default function PortfolioItem(props) {
             return (
               <TableRow key={portfolio.id}>
                 <TableCell>
-                  <Button 
-                  variant="contained"
-                  size="medium"
-                  startIcon={<FolderSpecialIcon/>}
-                  LinkComponent={Link} to={"/portfolio/" + portfolio.name}
-                  color="primary"
+                  <Button
+                    variant="contained"
+                    size="medium"
+                    startIcon={<FolderSpecialIcon />}
+                    LinkComponent={Link}
+                    to={"/portfolio/" + portfolio.name}
+                    color="primary"
                   >
                     {portfolio.name}
                   </Button>

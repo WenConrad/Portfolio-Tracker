@@ -115,20 +115,9 @@ export default function TransactionForm() {
     setTicker(val);
   };
 
-  let transaction = {
-    date: value,
-    ticker: ticker,
-    type: type,
-    price: price,
-    quantity: quantity,
-    portfolio_id: portfolioName,
-    portfolio_name: !!portfolios[0]
-      ? portfolios.filter((port) => port.id === portfolioName)[0].name
-      : [],
-  };
-
   const handleSubmit = (event) => {
-    transaction = {
+    const transaction = {
+      id: transactions.length * 10 + portfolioName,
       date: value,
       ticker: ticker,
       type: type,
