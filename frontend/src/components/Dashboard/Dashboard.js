@@ -27,13 +27,11 @@ import { lightTheme, darkTheme } from "../Template/theme";
 
 import PortfolioDataTable from "./PositionListItem";
 import { authContext } from "../../providers/AuthProvider";
-import { portfoliosContext } from "../../providers/PortfolioProvider";
 
 import { useNavigate, useParams } from "react-router-dom";
 
 function DashboardContent() {
   const { logout, user } = React.useContext(authContext);
-  const { positions } = React.useContext(portfoliosContext);
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {

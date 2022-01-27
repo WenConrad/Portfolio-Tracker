@@ -2,6 +2,7 @@ import * as React from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import Title from "./Title";
 import { portfoliosContext } from "../../providers/PortfolioProvider";
+import { useParams } from "react-router-dom";
 // import Link from "@mui/material/Link";
 // import Table from "@mui/material/Table";
 // import TableBody from "@mui/material/TableBody";
@@ -84,7 +85,7 @@ const columns = [
     field: "quantity",
     headerName: "Quantity",
     type: "number",
-    flex: 0.75,
+    flex: 0.5,
   },
   {
     field: "market_price",
@@ -118,6 +119,7 @@ const columns = [
 
 function PortfolioDataTable() {
   const { positions } = React.useContext(portfoliosContext);
+  const { name } = useParams();
   if (!positions) {
     return (
       <React.Fragment>
@@ -128,12 +130,15 @@ function PortfolioDataTable() {
       </React.Fragment>
     );
   }
+  const positionsInPortfolio = name
+    ? positions.filter((pos) => pos.portfolio_name === name)
+    : positions;
   return (
     <React.Fragment>
       <Title>All Positions</Title>
       <div style={{ height: "75vh", width: "100%" }}>
         <DataGrid
-          rows={positions}
+          rows={positionsInPortfolio}
           columns={columns}
           pageSize={10}
           rowsPerPageOptions={[10]}
