@@ -17,7 +17,6 @@ const NewPortfolioForm = () => {
     axios
       .post("/stocks/portfolio/new", { portName: newPortfolioName })
       .then((res) => {
-        console.log(portfolios);
         setPortfolios([...portfolios, res.data[0]]);
       });
   };
