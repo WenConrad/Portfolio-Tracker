@@ -27,55 +27,18 @@ import { mainListItems, LogOutItem } from "../Template/listItems";
 import Copyright from "../Template/Template";
 import { AppBar, Drawer } from "../Template/Template";
 import { authContext } from "../../providers/AuthProvider";
+import { portfoliosContext } from "../../providers/PortfolioProvider";
 
 import PortfolioItem from "./PortfolioItem";
 import PortfolioDataTable from "../Dashboard/PositionListItem";
 
-import axios from "axios";
-
-
-
 function DashboardContent() {
-  const { logout, user } = React.useContext(authContext);
+  const { logout } = React.useContext(authContext);
+  const { portfolios, positions } = React.useContext(portfoliosContext);
   const [open, setOpen] = React.useState(true);
   const navigate = useNavigate();
   const toggleDrawer = () => {
     setOpen(!open);
-  };
-
-  let params = useParams();
-
-  const [portfolios, getPortfolios] = React.useState("");
-  const [positions, getPositions] = React.useState("");
-  React.useEffect(() => {
-    let url = params.name
-      ? `/stocks/portfolio/${params.name}`
-      : "/stocks/portfolio";
-    params.name ? getAllPositions(url) : getAllPortfolios(url);
-  }, []);
-
-  const getAllPortfolios = (url) => {
-    axios
-      .get(url)
-      .then(function (res) {
-        //   console.log(res.data);
-        const allTransactions = res.data;
-        //add our data to state
-        getPortfolios(allTransactions);
-      })
-      .catch((error) => console.error(`Error: ${error}`));
-  };
-
-  const getAllPositions = (url) => {
-    axios
-      .get(url)
-      .then(function (res) {
-        //   console.log(res.data);
-        const allPositions = res.data;
-        //add our data to state
-        getPositions(allPositions);
-      })
-      .catch((error) => console.error(`Error: ${error}`));
   };
 
   const logoutRedirect = function () {

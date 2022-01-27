@@ -11,7 +11,6 @@ export default function TickerSearch(props) {
   React.useEffect(() => {
     if (ticker.length > 0) {
       axios.post("/stocks/search", { ticker: ticker }).then((res) => {
-        console.log(res.data);
         setOptions([...res.data]);
       });
     }

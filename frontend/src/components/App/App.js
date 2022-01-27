@@ -21,7 +21,8 @@ import SignInSide from "../Login/LoginSide";
 
 function App() {
   const { auth, user, login, checkAuth, logout } = useContext(authContext);
-  const { getPortfolios } = useContext(portfoliosContext);
+  const { getPortfolios, getPositions, transactions, getTransactions } =
+    useContext(portfoliosContext);
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
@@ -39,11 +40,18 @@ function App() {
 
   useEffect(() => {
     getPortfolios();
+    getTransactions();
   }, [auth]);
 
+<<<<<<< HEAD
   const [theme, setTheme] = React.useState(true)
   const icon = !theme ? <Brightness7Icon /> : <Brightness4Icon /> // Icons imported from `@material-ui/icons`
   const appliedTheme = createTheme(theme ? darkTheme : lightTheme)
+=======
+  useEffect(() => {
+    getPositions();
+  }, [auth, transactions]);
+>>>>>>> master
 
   return (
     <ThemeProvider theme={appliedTheme}>

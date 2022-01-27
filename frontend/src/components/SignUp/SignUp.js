@@ -18,7 +18,7 @@ const axios = require("axios");
 
 async function axiosTest(user) {
   axios.post("/users/register", user).then(function (res) {
-    console.log(res.data);
+    // console.log(res.data);
   });
 }
 
@@ -55,11 +55,11 @@ export default function SignUp() {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     // eslint-disable-next-line no-console
-    console.log({
-      name: data.get("name"),
-      email: data.get("email"),
-      password: data.get("password"),
-    });
+    // console.log({
+    //   name: data.get("name"),
+    //   email: data.get("email"),
+    //   password: data.get("password"),
+    // });
     const name = getName(firstName, lastName);
     axiosTest({ name, email, password }).then(() => {
       navigate("/dashboard");

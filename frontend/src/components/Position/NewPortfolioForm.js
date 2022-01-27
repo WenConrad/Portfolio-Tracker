@@ -1,13 +1,13 @@
 import { Button, FormControl, TableRow, TextField } from "@mui/material";
 import AddIcon from "@mui/icons-material/Add";
 import axios from "axios";
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useContext } from "react";
+import { portfoliosContext } from "../../providers/PortfolioProvider";
 
 const NewPortfolioForm = () => {
   const [show, setShow] = useState(false);
   const [newPortfolioName, setNewPortfolioName] = useState("");
-  const navigate = useNavigate();
+  const { portfolios, setPortfolios } = useContext(portfoliosContext);
 
   const handleChange = (newPortName) => {
     setNewPortfolioName(newPortName.target.value);
@@ -17,7 +17,8 @@ const NewPortfolioForm = () => {
     axios
       .post("/stocks/portfolio/new", { portName: newPortfolioName })
       .then((res) => {
-        window.location.reload(false);
+        console.log(portfolios);
+        setPortfolios([...portfolios, res.data[0]]);
       });
   };
 

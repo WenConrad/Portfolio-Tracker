@@ -30,7 +30,7 @@ import TransactionForm from "./TransactionForm";
 import { portfoliosContext } from "../../providers/PortfolioProvider";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+
 import TransactionDataTable from "./TransactionListItem";
 
 
@@ -38,28 +38,12 @@ import TransactionDataTable from "./TransactionListItem";
 function DashboardContent() {
   const { logout, user } = React.useContext(authContext);
   const navigate = useNavigate();
-  const { portfolios } = useContext(portfoliosContext);
+  const { portfolios, transactions } = useContext(portfoliosContext);
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
   };
   
-
-  const [transactions, setTransactions] = React.useState("");
-  React.useEffect(() => {
-    getAllTransactions();
-  }, []);
-
-  const getAllTransactions = () => {
-    axios
-      .get("/stocks/transactions")
-      .then(function (res) {
-        const allTransactions = res.data;
-        //add our data to state
-        setTransactions(allTransactions);
-      })
-      .catch((error) => console.error(`Error: ${error}`));
-  };
 
   const logoutRedirect = function () {
     logout().then((res) => {

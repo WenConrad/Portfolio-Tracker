@@ -31,6 +31,7 @@ import { portfoliosContext } from "../../providers/PortfolioProvider";
 
 import { useNavigate, useParams } from "react-router-dom";
 
+<<<<<<< HEAD
 import axios from "axios";
 
 
@@ -38,6 +39,13 @@ function DashboardContent() {
   const { logout, user } = React.useContext(authContext);
   const { portfolios } = React.useContext(portfoliosContext);
   
+=======
+const mdTheme = createTheme();
+
+function DashboardContent() {
+  const { logout } = React.useContext(authContext);
+  const { portfolios, positions } = React.useContext(portfoliosContext);
+>>>>>>> master
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
@@ -45,26 +53,6 @@ function DashboardContent() {
   };
 
   let params = useParams();
-
-  const [positions, getPositions] = React.useState("");
-  React.useEffect(() => {
-    let url = params.name
-      ? `/stocks/portfolio/${params.name}`
-      : "/stocks/positions";
-    // let url = '/stocks/positions'
-    getAllPositions(url);
-  }, []);
-
-  const getAllPositions = (url) => {
-    axios
-      .get(url)
-      .then(function (res) {
-        const allPositions = res.data;
-        //add our data to state
-        getPositions(allPositions);
-      })
-      .catch((error) => console.error(`Error: ${error}`));
-  };
 
   const logoutRedirect = function () {
     logout().then((res) => {
