@@ -5,16 +5,25 @@ import App from "./components/App/App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 
+import CssBaseline from "@mui/material/CssBaseline";
+import { ThemeProvider, createTheme } from '@material-ui/core/styles';
+import { lightTheme } from "./components/Template/theme";
+
 import AuthProvider from "./providers/AuthProvider";
 import PortfolioProvider from "./providers/PortfolioProvider";
+
+const theme = createTheme(lightTheme);
 
 ReactDOM.render(
   <React.StrictMode>
     <AuthProvider>
       <PortfolioProvider>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
+        <ThemeProvider theme={theme}>
+          <CssBaseline />
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+        </ThemeProvider>
       </PortfolioProvider>
     </AuthProvider>
   </React.StrictMode>,

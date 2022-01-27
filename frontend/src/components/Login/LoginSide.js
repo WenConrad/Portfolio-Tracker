@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 // mui components
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
+
 import TextField from '@mui/material/TextField';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
@@ -38,9 +38,9 @@ export default function SignInSide() {
     };
 
   return (
-    <ThemeProvider theme={theme}>
+    
       <Grid container component="main" sx={{ height: '95vh' }}>
-        <CssBaseline />
+        
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
           <Box
             sx={{
@@ -131,6 +131,6 @@ export default function SignInSide() {
           }}
         />
       </Grid>
-    </ThemeProvider>
+    
   );
 }
