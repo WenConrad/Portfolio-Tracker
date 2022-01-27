@@ -58,14 +58,13 @@ exports.getTransactions = getTransactions;
 
 const getStockPositions = function (user_id) {
   let myQuery = `SELECT
-    positions.id,
     positions.ticker,
-    SUM(positions.book_cost) as book_cost,
+    SUM(positions.book_cost)/SUM(positions.quantity) as book_cost,
     SUM(positions.quantity) as quantity,
     portfolios.name AS portfolio_name
     FROM positions JOIN portfolios ON portfolios.id = portfolio_id
     WHERE user_id = $1
-    GROUP BY positions.ticker, portfolios.name, positions.id;`;
+    GROUP BY positions.ticker, portfolios.name;`;
   let params = [user_id];
   return pool
     .query(myQuery, params)
@@ -77,8 +76,6 @@ const getStockPositions = function (user_id) {
 exports.getStockPositions = getStockPositions;
 
 const addTransaction = async function (transaction) {
-  console.log("transaction");
-  console.log(transaction);
   if (transaction.type === "BUY") {
     let positionsQuery = `INSERT INTO positions
       (date, ticker, book_cost, quantity, portfolio_id)
@@ -86,7 +83,7 @@ const addTransaction = async function (transaction) {
     let positionsParams = [
       transaction.date,
       transaction.ticker,
-      transaction.price,
+      transaction.price * transaction.quantity,
       transaction.quantity,
       transaction.portfolio_id,
     ];
@@ -120,7 +117,10 @@ const addTransaction = async function (transaction) {
       } else {
         let newQuantity = position.quantity - stockToBeSold;
         pool
-          .query(`UPDATE positions SET quantity = $1 RETURNING *;`, newQuantity)
+          .query(
+            `UPDATE positions SET quantity = $1 WHERE id = $2 RETURNING *;`,
+            [newQuantity, position.id]
+          )
           .then((result) => console.log(result.rows))
           .catch((err) => {
             console.log(err.message);

@@ -11,16 +11,22 @@ const PortfolioProvider = function (props) {
 
   const getPortfolios = async () => {
     const { data } = await axios.get("/stocks/portfolio");
+    console.log(data);
     setPortfolios(data);
   };
 
   const getPositions = async () => {
     const { data } = await axios.get("/stocks/positions");
-    setPositions(data);
+    const dataWithIdKey = [];
+    for (let item in data) {
+      dataWithIdKey.push({ ...data[item], id: item });
+    }
+    setPositions(dataWithIdKey);
   };
 
   const getTransactions = async () => {
     const { data } = await axios.get("/stocks/transactions");
+    console.log(data);
     setTransactions(data);
   };
 

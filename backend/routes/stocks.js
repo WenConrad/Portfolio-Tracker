@@ -17,8 +17,6 @@ router.get("/transactions", function (req, res, next) {
 });
 
 router.post("/transactions/new", function (req, res, next) {
-  console.log(req.body);
-  console.log(req.session.userId);
   let user = req.session.userId;
   database.addTransaction(req.body).then((result) => {
     res.json(result);
@@ -32,13 +30,13 @@ router.get("/positions", function (req, res, next) {
     const tickersList = result.map((stock) => stock.ticker);
     // query for market price of each ticker
     stockAPI.getStockPrice(tickersList).then((prices) => {
-      return result.map((stock) => {
+      const stocksWithPrices = result.map((stock) => {
         return { ...stock, market_price: prices[stock.ticker] };
       });
       // for (let price in prices) {
       //   result[price].market_price = prices[price].price;
       // }
-      // res.json(result);
+      res.json(stocksWithPrices);
     });
   });
 });
