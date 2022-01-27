@@ -18,6 +18,7 @@ import Link from "@mui/material/Link";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -28,14 +29,14 @@ import { AppBar, Drawer } from "../Template/Template";
 import { authContext } from "../../providers/AuthProvider";
 
 import PortfolioItem from "./PortfolioItem";
-import PositionListItem from "../Dashboard/PositionListItem";
+import PortfolioDataTable from "../Dashboard/PositionListItem";
 
 import axios from "axios";
 
-const mdTheme = createTheme();
+
 
 function DashboardContent() {
-  const { logout } = React.useContext(authContext);
+  const { logout, user } = React.useContext(authContext);
   const [open, setOpen] = React.useState(true);
   const navigate = useNavigate();
   const toggleDrawer = () => {
@@ -84,7 +85,7 @@ function DashboardContent() {
   };
 
   return (
-    <ThemeProvider theme={mdTheme}>
+   
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
         <AppBar position="absolute" open={open}>
@@ -112,15 +113,18 @@ function DashboardContent() {
               noWrap
               sx={{ flexGrow: 1 }}
             >
-              Positions
+              Portfolios
             </Typography>
+            
             <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon />
+              <Badge color="secondary">
+                <AccountCircleIcon />
               </Badge>
+              {user.name}
             </IconButton>
           </Toolbar>
         </AppBar>
+
         <Drawer variant="permanent" open={open}>
           <Toolbar
             sx={{
@@ -166,7 +170,7 @@ function DashboardContent() {
               {/* positions */}
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-                  <PositionListItem positions={positions} />
+                  <PortfolioDataTable positions={positions} />
                 </Paper>
               </Grid>
             </Grid>
@@ -174,7 +178,7 @@ function DashboardContent() {
           </Container>
         </Box>
       </Box>
-    </ThemeProvider>
+  
   );
 }
 

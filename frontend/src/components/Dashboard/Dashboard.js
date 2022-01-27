@@ -16,15 +16,16 @@ import Paper from "@mui/material/Paper";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import Chart from "./Chart";
-import Deposits from "./Deposits";
-import Orders from "./Orders";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
 // template components
 import { mainListItems, LogOutItem } from "../Template/listItems";
 import Copyright from "../Template/Template";
 import { AppBar, Drawer } from "../Template/Template";
+import { lightTheme, darkTheme } from "../Template/theme";
 
-import PositionListItem from "./PositionListItem";
+import PortfolioDataTable from "./PositionListItem";
 import { authContext } from "../../providers/AuthProvider";
 import { portfoliosContext } from "../../providers/PortfolioProvider";
 
@@ -32,11 +33,11 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import axios from "axios";
 
-const mdTheme = createTheme();
 
 function DashboardContent() {
-  const { logout } = React.useContext(authContext);
+  const { logout, user } = React.useContext(authContext);
   const { portfolios } = React.useContext(portfoliosContext);
+  
   const navigate = useNavigate();
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
@@ -71,8 +72,12 @@ function DashboardContent() {
     });
   };
 
+  const [theme, setTheme] = React.useState()
+  const icon = !theme ? <Brightness7Icon /> : <Brightness4Icon /> // Icons imported from `@material-ui/icons`
+  
+
   return (
-    <ThemeProvider theme={mdTheme}>
+    
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
         <AppBar position="absolute" open={open}>
@@ -102,13 +107,20 @@ function DashboardContent() {
             >
               Dashboard
             </Typography>
+
+            <IconButton sx={{ ml: 1 }} onClick={() => setTheme(!theme ? lightTheme : darkTheme)} color="inherit">
+              {icon}
+            </IconButton>
+
             <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon />
+              <Badge color="secondary">
+                <AccountCircleIcon />
               </Badge>
+              {user.name}
             </IconButton>
           </Toolbar>
         </AppBar>
+
         <Drawer variant="permanent" open={open}>
           <Toolbar
             sx={{
@@ -147,7 +159,8 @@ function DashboardContent() {
               {/* All Positions */}
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-                  <PositionListItem positions={positions} />
+                  {/* <PositionListItem positions={positions} /> */}
+                  <PortfolioDataTable positions={positions} />
                 </Paper>
               </Grid>
             </Grid>
@@ -155,7 +168,7 @@ function DashboardContent() {
           </Container>
         </Box>
       </Box>
-    </ThemeProvider>
+    
   );
 }
 

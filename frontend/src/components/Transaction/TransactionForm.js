@@ -164,7 +164,7 @@ export default function TransactionForm() {
           <TextField
             required
             id="inputType"
-            select={portfolioName}
+            select
             label="Portfolio Name"
             value={portfolioName}
             onChange={handlePortfolioChange}
