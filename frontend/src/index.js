@@ -7,12 +7,12 @@ import { BrowserRouter } from "react-router-dom";
 
 import CssBaseline from "@mui/material/CssBaseline";
 import { ThemeProvider, createTheme } from '@material-ui/core/styles';
-import { lightTheme } from "./components/Template/theme";
+import { lightTheme, darkTheme } from "./components/Template/theme";
 
 import AuthProvider from "./providers/AuthProvider";
 import PortfolioProvider from "./providers/PortfolioProvider";
 
-const theme = createTheme(lightTheme);
+const theme = createTheme(darkTheme);
 
 ReactDOM.render(
   <React.StrictMode>

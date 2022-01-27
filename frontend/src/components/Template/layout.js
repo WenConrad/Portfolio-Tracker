@@ -1,7 +1,7 @@
 import * as React from "react";
 // mui components
 import { useTheme, createTheme, ThemeProvider } from "@mui/material/styles";
-
+import CssBaseline from "@mui/material/CssBaseline";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import List from "@mui/material/List";
@@ -12,6 +12,7 @@ import Badge from "@mui/material/Badge";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
+import { Switch } from "@mui/material";
 // mui icons
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
@@ -32,6 +33,7 @@ import { authContext } from "../../providers/AuthProvider";
 
 import { Outlet, useNavigate, useParams } from "react-router-dom";
 
+
 const Layout = ({content}) => {
   const { logout, user } = React.useContext(authContext);
   const navigate = useNavigate();
@@ -46,94 +48,78 @@ const Layout = ({content}) => {
     });
   };
   
-  const [mode, setMode] = React.useState('light');
-  
-  const theme = useTheme();
-  const toggleDark = () => {
-    
-    console.log('before')
-    console.log(mode)
-    console.log(colorMode)
-    console.log(theme.palette.mode)
-    let themeMode = theme.palette.mode;
-    themeMode !== 'light' ? setMode('light') : setMode('dark');
-    console.log('after')
-    console.log(theme.palette.mode)
-  }
-  const icon = !theme ? <Brightness7Icon /> : <Brightness4Icon />; // Icons imported from `@material-ui/icons`
+  const [dark, setDark] = React.useState(false)
+  const appliedTheme = createTheme(dark ? lightTheme : darkTheme);
 
   return (
     <React.Fragment>
-    <Box sx={{ display: "flex" }}>
-      
-      <AppBar position="absolute" open={open}>
-        <Toolbar
-          sx={{
-            pr: "24px", // keep right padding when drawer closed
-          }}
-        >
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            onClick={toggleDrawer}
+        <ThemeProvider theme={appliedTheme}>
+        <CssBaseline />
+        <Box sx={{ display: "flex" }}>
+        
+        <AppBar position="absolute" open={open}>
+            <Toolbar
             sx={{
-              marginRight: "36px",
-              ...(open && { display: "none" }),
+                pr: "24px", // keep right padding when drawer closed
             }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography
-            component="h1"
-            variant="h6"
-            color="inherit"
-            noWrap
-            sx={{ flexGrow: 1 }}
-          >
-            Portfolio Tracker
-          </Typography>
+            >
+            <IconButton
+                edge="start"
+                color="inherit"
+                aria-label="open drawer"
+                onClick={toggleDrawer}
+                sx={{
+                marginRight: "36px",
+                ...(open && { display: "none" }),
+                }}
+            >
+                <MenuIcon />
+            </IconButton>
+            <Typography
+                component="h1"
+                variant="h6"
+                color="inherit"
+                noWrap
+                sx={{ flexGrow: 1 }}
+            >
+                Portfolio Tracker
+            </Typography>
 
-          <IconButton
-            sx={{ ml: 1 }}
-            onClick={toggleDark}
-            color="inherit"
-          >
-            {icon}
-          </IconButton>
+            <Switch color="secondary" checked={dark} onChange={() => {setDark(!dark)} } />
 
-          <IconButton color="inherit">
-            <Badge color="secondary">
-              <AccountCircleIcon />
-            </Badge>
-          </IconButton>
-        </Toolbar>
-      </AppBar>
+            <IconButton color="inherit">
+                <Badge color="secondary">
+                <AccountCircleIcon />
+                </Badge>
+            </IconButton>
+            </Toolbar>
+        </AppBar>
 
-      <Drawer variant="permanent" open={open}>
-        <Toolbar
-          sx={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "flex-end",
-            px: [1],
-          }}
-        >
-          <IconButton onClick={toggleDrawer}>
-            <ChevronLeftIcon />
-          </IconButton>
-        </Toolbar>
-        <Divider />
-        <List>{mainListItems}</List>
-        <Divider />
-        <List>
-          <LogOutItem signout={logoutRedirect} />
-        </List>
-      </Drawer>
+        <Drawer variant="permanent" open={open}>
+            <Toolbar
+            sx={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "flex-end",
+                px: [1],
+            }}
+            >
+            <IconButton onClick={toggleDrawer}>
+                <ChevronLeftIcon />
+            </IconButton>
+            </Toolbar>
+            <Divider />
+            <List>{mainListItems}</List>
+            <Divider />
+            <List>
+            <LogOutItem signout={logoutRedirect} />
+            </List>
+        </Drawer>
 
-      {/* Outlet for content */}
-      <Outlet />
-    </Box>
+        {/* Outlet for content */}
+        <Outlet />
+        </Box>
+      </ThemeProvider>
     </React.Fragment>
   );
 };
