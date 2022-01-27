@@ -17,7 +17,7 @@ import SignInSide from "../Login/LoginSide";
 
 function App() {
   const { auth, user, login, checkAuth, logout } = useContext(authContext);
-  const { getPortfolios, getPositions, getTransactions } =
+  const { getPortfolios, getPositions, transactions, getTransactions } =
     useContext(portfoliosContext);
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -36,9 +36,12 @@ function App() {
 
   useEffect(() => {
     getPortfolios();
-    getPositions();
     getTransactions();
   }, [auth]);
+
+  useEffect(() => {
+    getPositions();
+  }, [auth, transactions]);
 
   return (
     <div className="wrapper">

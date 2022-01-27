@@ -141,7 +141,6 @@ export default function TransactionForm() {
     };
     // event.preventDefault();
     addTransaction(transaction);
-    console.log(portfolios.filter((port) => port.id === portfolioName)[0].name);
     setTransactions([...transactions, transaction]);
   };
 

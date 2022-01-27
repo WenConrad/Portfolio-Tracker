@@ -31,8 +31,6 @@ import { portfoliosContext } from "../../providers/PortfolioProvider";
 import PortfolioItem from "./PortfolioItem";
 import PositionListItem from "../Dashboard/PositionListItem";
 
-import axios from "axios";
-
 const mdTheme = createTheme();
 
 function DashboardContent() {
@@ -43,41 +41,6 @@ function DashboardContent() {
   const toggleDrawer = () => {
     setOpen(!open);
   };
-
-  let params = useParams();
-
-  // const [portfolios, setPortfolios] = React.useState("");
-  // const [positions, setPositions] = React.useState("");
-  // React.useEffect(() => {
-  //   let url = params.name
-  //     ? `/stocks/portfolio/${params.name}`
-  //     : "/stocks/portfolio";
-  //   params.name ? getAllPositions(url) : getAllPortfolios(url);
-  // }, []);
-
-  // const getAllPortfolios = (url) => {
-  //   axios
-  //     .get(url)
-  //     .then(function (res) {
-  //       //   console.log(res.data);
-  //       const allTransactions = res.data;
-  //       //add our data to state
-  //       setPortfolios(allTransactions);
-  //     })
-  //     .catch((error) => console.error(`Error: ${error}`));
-  // };
-
-  // const getAllPositions = (url) => {
-  //   axios
-  //     .get(url)
-  //     .then(function (res) {
-  //       //   console.log(res.data);
-  //       const allPositions = res.data;
-  //       //add our data to state
-  //       setPositions(allPositions);
-  //     })
-  //     .catch((error) => console.error(`Error: ${error}`));
-  // };
 
   const logoutRedirect = function () {
     logout().then((res) => {
