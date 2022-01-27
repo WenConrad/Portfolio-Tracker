@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from "react";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 // Components
 import "./App.css";
@@ -9,6 +10,9 @@ import SignUp from "../SignUp/SignUp";
 import Preferences from "../Preferences/Preferences";
 import PositionList from "../Position/PositionList";
 import TransactionList from "../Transaction/TransactionList";
+import { lightTheme, darkTheme } from "../Template/theme";
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
 // authProvider
 import { authContext } from "../../providers/AuthProvider";
 import { render } from "react-dom";
@@ -39,26 +43,31 @@ function App() {
     getTransactions();
   }, [auth]);
 
+  const [theme, setTheme] = React.useState(true)
+  const icon = !theme ? <Brightness7Icon /> : <Brightness4Icon /> // Icons imported from `@material-ui/icons`
+  const appliedTheme = createTheme(theme ? darkTheme : lightTheme)
   useEffect(() => {
     getPositions();
   }, [auth, transactions]);
 
   return (
-    <div className="wrapper">
-      <Routes>
-        <Route path="/" element={<SignInSide />} />
-        {/* <Route path="/" element={<Login />} /> */}
-        <Route path="/login" element={<SignInSide />} />
-        {/* <Route path="/login" element={<Login />} /> */}
-        <Route path="/signup" element={<SignUp />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/portfolio/:name" element={<Dashboard />} />
-        <Route path="/positions" element={<PositionList />} />
-        {/* <Route path="/portfolio/:name" element={<PositionList />} /> */}
-        <Route path="/transactions" element={<TransactionList />} />
-        <Route path="/preferences" element={<Preferences />} />
-      </Routes>
-    </div>
+    <ThemeProvider theme={appliedTheme}>
+      <div className="wrapper">
+        <Routes>
+          <Route path="/" element={<SignInSide />} />
+          {/* <Route path="/" element={<Login />} /> */}
+          <Route path="/login" element={<SignInSide />} />
+          {/* <Route path="/login" element={<Login />} /> */}
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/portfolio/:name" element={<Dashboard />} />
+          <Route path="/positions" element={<PositionList />} />
+          {/* <Route path="/portfolio/:name" element={<PositionList />} /> */}
+          <Route path="/transactions" element={<TransactionList />} />
+          <Route path="/preferences" element={<Preferences />} />
+        </Routes>
+      </div>
+    </ThemeProvider>
   );
 }
 

@@ -8,6 +8,7 @@ import Title from "../Dashboard/Title";
 import NewPortfolioForm from "./NewPortfolioForm";
 import { Button } from "@mui/material";
 import { Link } from "react-router-dom";
+import FolderSpecialIcon from '@mui/icons-material/FolderSpecial';
 
 export default function PortfolioItem(props) {
   // console.log(props)
@@ -24,8 +25,9 @@ export default function PortfolioItem(props) {
                   <Button 
                   variant="contained"
                   size="medium"
+                  startIcon={<FolderSpecialIcon/>}
                   LinkComponent={Link} to={"/portfolio/" + portfolio.name}
-                  color="inherit"
+                  color="primary"
                   >
                     {portfolio.name}
                   </Button>
@@ -52,7 +54,7 @@ export default function PortfolioItem(props) {
       <Table size="small">
         <TableHead>
           <TableRow>
-            <TableCell>Portfolio</TableCell>
+            <TableCell>Portfolio(s)</TableCell>
           </TableRow>
         </TableHead>
         {/* Display transactions from props */}

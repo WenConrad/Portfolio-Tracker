@@ -18,28 +18,32 @@ import Link from "@mui/material/Link";
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import NotificationsIcon from "@mui/icons-material/Notifications";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 // template components
 import { mainListItems, LogOutItem } from "../Template/listItems";
 import Copyright from "../Template/Template";
 import { AppBar, Drawer } from "../Template/Template";
 import { authContext } from "../../providers/AuthProvider";
 
-import TransactionListItem from "./TransactionListItem";
+// import TransactionListItem from "./TransactionListItem";
 import TransactionForm from "./TransactionForm";
 import { portfoliosContext } from "../../providers/PortfolioProvider";
 import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
-const mdTheme = createTheme();
+import TransactionDataTable from "./TransactionListItem";
+
+
 
 function DashboardContent() {
-  const { logout } = React.useContext(authContext);
+  const { logout, user } = React.useContext(authContext);
   const navigate = useNavigate();
   const { portfolios, transactions } = useContext(portfoliosContext);
   const [open, setOpen] = React.useState(true);
   const toggleDrawer = () => {
     setOpen(!open);
   };
+  
 
   const logoutRedirect = function () {
     logout().then((res) => {
@@ -48,7 +52,7 @@ function DashboardContent() {
   };
 
   return (
-    <ThemeProvider theme={mdTheme}>
+    
       <Box sx={{ display: "flex" }}>
         <CssBaseline />
         <AppBar position="absolute" open={open}>
@@ -79,12 +83,14 @@ function DashboardContent() {
               Transactions
             </Typography>
             <IconButton color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <NotificationsIcon />
+              <Badge color="secondary">
+                <AccountCircleIcon />
               </Badge>
+              
             </IconButton>
           </Toolbar>
         </AppBar>
+
         <Drawer variant="permanent" open={open}>
           <Toolbar
             sx={{
@@ -121,7 +127,7 @@ function DashboardContent() {
           <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
             <Grid container spacing={3}>
               {/* Add Transaction */}
-              <Grid item xs={12} md={8} lg={9}>
+              <Grid item xs={12}>
                 <Paper
                   sx={{
                     p: 2,
@@ -132,30 +138,19 @@ function DashboardContent() {
                   <TransactionForm />
                 </Paper>
               </Grid>
-              {/* Recent Deposits */}
-              <Grid item xs={12} md={4} lg={3}>
-                <Paper
-                  sx={{
-                    p: 2,
-                    display: "flex",
-                    flexDirection: "column",
-                    height: 240,
-                  }}
-                ></Paper>
-              </Grid>
               {/* Recent Transactions */}
               <Grid item xs={12}>
                 <Paper sx={{ p: 2, display: "flex", flexDirection: "column" }}>
-                  <TransactionListItem transactions={transactions} />
+                  {/* <TransactionListItem transactions={transactions} /> */}
+                  <TransactionDataTable transactions={transactions} />
                 </Paper>
               </Grid>
             </Grid>
-
             <Copyright sx={{ pt: 4 }} />
           </Container>
         </Box>
       </Box>
-    </ThemeProvider>
+   
   );
 }
 

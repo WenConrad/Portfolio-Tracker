@@ -177,13 +177,14 @@ exports.addPortfolio = addPortfolio;
 
 const getPositionsByPortfolio = function (user_id, portfolio_name) {
   let myQuery = `SELECT
+    positions.id,
     positions.ticker,
     SUM(positions.book_cost) as book_cost,
     SUM(positions.quantity) as quantity,
     portfolios.name AS portfolio_name
     FROM positions JOIN portfolios ON portfolios.id = portfolio_id
     WHERE user_id = $1 AND portfolios.name = $2
-    GROUP BY positions.ticker, portfolios.name;`;
+    GROUP BY positions.ticker, portfolios.name, positions.id;`;
   let params = [user_id, portfolio_name];
   return pool
     .query(myQuery, params)
