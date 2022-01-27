@@ -32,6 +32,7 @@ const NewPortfolioForm = () => {
             required
             id="inputType"
             label="New Portfolio Name"
+            autoComplete="off"
             value={newPortfolioName}
             onChange={handleChange}
           />

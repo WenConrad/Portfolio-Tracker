@@ -33,8 +33,7 @@ import PortfolioItem from "./PortfolioItem";
 import PortfolioDataTable from "../Dashboard/PositionListItem";
 
 function DashboardContent() {
-  const { logout, user } = React.useContext(authContext);
-  const { portfolios, positions } = React.useContext(portfoliosContext);
+  const { logout } = React.useContext(authContext);
   const [open, setOpen] = React.useState(true);
   const navigate = useNavigate();
   const toggleDrawer = () => {

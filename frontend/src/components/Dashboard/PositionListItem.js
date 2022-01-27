@@ -85,7 +85,7 @@ const columns = [
   },
 ];
 
-function PortfolioDataTable(props) {
+function PortfolioDataTable() {
   const { positions } = React.useContext(portfoliosContext);
   if (!positions) {
     return (

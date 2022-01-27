@@ -25,6 +25,10 @@ function App() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
+  const [theme, setTheme] = React.useState(true);
+  const icon = !theme ? <Brightness7Icon /> : <Brightness4Icon />; // Icons imported from `@material-ui/icons`
+  const appliedTheme = createTheme(theme ? darkTheme : lightTheme);
+
   // check if user is logged in
   useEffect(() => {
     checkAuth().then((res) => {
@@ -41,10 +45,6 @@ function App() {
     getPortfolios();
     getTransactions();
   }, [auth]);
-
-  const [theme, setTheme] = React.useState(true);
-  const icon = !theme ? <Brightness7Icon /> : <Brightness4Icon />; // Icons imported from `@material-ui/icons`
-  const appliedTheme = createTheme(theme ? darkTheme : lightTheme);
 
   useEffect(() => {
     getPositions();

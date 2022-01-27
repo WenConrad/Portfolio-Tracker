@@ -180,6 +180,7 @@ export default function TransactionForm() {
           <TextField
             required
             label="Price"
+            autoComplete="off"
             value={price.NumberFormat}
             onChange={handlePriceChange}
             name="numberformat"
@@ -191,6 +192,7 @@ export default function TransactionForm() {
           <TextField
             required
             label="Quantity"
+            autoComplete="off"
             value={quantity.NumberFormat}
             onChange={handleQuantityChange}
             name="numberformat"
