@@ -116,6 +116,7 @@ export default function TransactionForm() {
   };
 
   const handleSubmit = (event) => {
+    event.preventDefault();
     const transaction = {
       id: transactions.length * 10 + portfolioName,
       date: value,
@@ -130,7 +131,10 @@ export default function TransactionForm() {
     };
     // event.preventDefault();
     addTransaction(transaction);
-    setTransactions([...transactions, transaction]);
+    setTransactions([...transactions, {...transaction, total_price: price * quantity,}]);
+    setTicker("");
+    setPrice("");
+    setQuantity("");
   };
 
   if (!portfolios[0]) {
@@ -179,7 +183,7 @@ export default function TransactionForm() {
           ></TickerSearch>
           <TextField
             required
-            label="Price"
+            label="Unit Price"
             autoComplete="off"
             value={price.NumberFormat}
             onChange={handlePriceChange}
